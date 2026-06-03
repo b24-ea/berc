@@ -1,0 +1,36 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './features/**/*.{js,jsx,ts,tsx}',
+    './providers/**/*.{js,jsx,ts,tsx}',
+  ],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        background: '#FAFAF8',
+        card: '#F5F4F0',
+        'text-primary': '#1A1A1A',
+        'text-secondary': '#6B6B6B',
+        accent: '#E8673A',
+        'accent-light': '#FFF0EB',
+        border: '#EEEDE9',
+        success: '#4CAF7D',
+        error: '#E05252',
+      },
+      fontFamily: {
+        sans: ['Inter_400Regular', 'System'],
+        medium: ['Inter_500Medium', 'System'],
+        semibold: ['Inter_600SemiBold', 'System'],
+        bold: ['Inter_700Bold', 'System'],
+      },
+      borderRadius: {
+        '2xl': '16px',
+        '3xl': '24px',
+      },
+    },
+  },
+  plugins: [],
+};
