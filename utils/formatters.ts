@@ -42,6 +42,11 @@ export function formatUserLocation(city: string | null | undefined): string {
   return city ?? '';
 }
 
+export function formatRunEventLine(isoDate: string): string {
+  const date = parseISO(isoDate);
+  return `${format(date, 'EEEE, MMM d')} • ${format(date, 'h:mm a')}`;
+}
+
 export function getFirstName(fullName: string): string {
   return fullName.split(' ')[0] ?? fullName;
 }

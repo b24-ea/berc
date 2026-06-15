@@ -1,63 +1,59 @@
 import type { ChatListItem } from '@/types/app';
 
 export type ChatListItemPreview = ChatListItem & {
-  subtitle: string;
   preview: string;
   timeLabel: string;
   unread?: boolean;
 };
 
-const now = new Date();
+const MAYA_RUN_DATE = '2025-10-24T06:30:00.000Z';
 
 export const MOCK_CHAT_LIST: ChatListItemPreview[] = [
   {
     id: 'chat-mock-1',
-    runId: 'run-mock-1',
-    runTitle: 'Sunset Trail Run',
-    runDate: now.toISOString(),
+    runId: 'mock-run-1',
+    runTitle: 'Prospect Park Loop',
+    runDate: MAYA_RUN_DATE,
     otherUser: {
-      id: 'mock-chat-user-1',
-      name: 'Alex Rivers',
-      photos: ['https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'],
+      id: 'mock-user-1',
+      name: 'Maya',
+      photos: ['https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200'],
     },
-    lastMessage: 'Just arrived at the trailhead. Meet by the north entrance?',
-    lastMessageAt: now.toISOString(),
-    subtitle: 'Sunset Trail Run — Griffith Park',
-    preview: 'Just arrived at the trailhead. M...',
-    timeLabel: '09:41 AM',
+    lastMessage: "I'll bring the recovery gels for after the run if you want one.",
+    lastMessageAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    preview: "I'll bring the recovery gels for aft...",
+    timeLabel: '2m ago',
     unread: true,
   },
   {
     id: 'chat-mock-2',
-    runId: 'run-mock-2',
-    runTitle: 'Interval Training',
-    runDate: new Date(now.getTime() - 86400000).toISOString(),
+    runId: 'mock-run-9',
+    runTitle: 'Richmond Riverside',
+    runDate: new Date(Date.now() + 86400000).toISOString(),
     otherUser: {
-      id: 'mock-chat-user-2',
-      name: 'Marcus Chen',
-      photos: ['https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'],
+      id: 'mock-user-9',
+      name: 'Daniel',
+      photos: ['https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200'],
     },
-    lastMessage: 'Great session today! Your pace was super consistent.',
-    lastMessageAt: new Date(now.getTime() - 86400000).toISOString(),
-    subtitle: 'Interval Training — Downtown Track',
-    preview: 'Great session today! Your pace w...',
-    timeLabel: 'Yesterday',
+    lastMessage: 'River path at 6:30 still works for you?',
+    lastMessageAt: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
+    preview: 'River path at 6:30 still works for you?',
+    timeLabel: '15m ago',
   },
   {
     id: 'chat-mock-3',
-    runId: 'run-mock-3',
-    runTitle: 'Morning Tempo',
-    runDate: new Date(now.getTime() - 2 * 86400000).toISOString(),
+    runId: 'mock-run-3',
+    runTitle: "Regent's Park Tempo",
+    runDate: new Date(Date.now() + 2 * 86400000).toISOString(),
     otherUser: {
-      id: 'mock-chat-user-3',
-      name: 'Sienna Watts',
-      photos: ['https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200'],
+      id: 'mock-user-3',
+      name: 'Priya',
+      photos: ['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200'],
     },
-    lastMessage: 'See you at 6:30 AM?',
-    lastMessageAt: new Date(now.getTime() - 2 * 86400000).toISOString(),
-    subtitle: 'Morning Tempo — Ocean Drive',
-    preview: 'See you at 6:30 AM?',
-    timeLabel: 'Mon',
+    lastMessage: 'Easy pace for the first 3k, then we pick it up.',
+    lastMessageAt: new Date(Date.now() - 3 * 3600000).toISOString(),
+    preview: 'Easy pace for the first 3k, then we pick it up.',
+    timeLabel: '3h ago',
   },
 ];
 
@@ -65,21 +61,60 @@ export interface MockChatMessage {
   id: string;
   text: string;
   isOwn: boolean;
+  timeLabel?: string;
+  dateSeparator?: string;
 }
 
 export const MOCK_CHAT_MESSAGES: Record<string, MockChatMessage[]> = {
   'chat-mock-1': [
-    { id: 'm1', text: 'Hey! Are you close?', isOwn: false },
-    { id: 'm2', text: 'Yep, 5 mins away.', isOwn: true },
-    { id: 'm3', text: 'Great, meet by the north entrance.', isOwn: false },
+    {
+      id: 'm1',
+      text: 'Still on for Thursday morning?',
+      isOwn: false,
+      timeLabel: '10:42 AM',
+      dateSeparator: 'Today',
+    },
+    {
+      id: 'm2',
+      text: 'Yes — Prospect Park loop at 6:30.',
+      isOwn: true,
+      timeLabel: '10:45 AM',
+    },
+    {
+      id: 'm3',
+      text: "I'll bring the recovery gels for after the run if you want one.",
+      isOwn: false,
+      timeLabel: '2m ago',
+    },
   ],
   'chat-mock-2': [
-    { id: 'm4', text: 'Great session today!', isOwn: false },
-    { id: 'm5', text: 'Thanks! Loved the interval set.', isOwn: true },
-    { id: 'm6', text: 'Let’s do tempo next Tuesday?', isOwn: false },
+    {
+      id: 'm4',
+      text: 'River path at 6:30 still works for you?',
+      isOwn: false,
+      timeLabel: '9:15 AM',
+      dateSeparator: 'Today',
+    },
+    {
+      id: 'm5',
+      text: 'Perfect. Meet by the bridge.',
+      isOwn: true,
+      timeLabel: '9:18 AM',
+    },
   ],
   'chat-mock-3': [
-    { id: 'm7', text: 'See you at 6:30 AM?', isOwn: false },
-    { id: 'm8', text: 'Perfect, I’ll be there.', isOwn: true },
+    {
+      id: 'm6',
+      text: 'Easy pace for the first 3k, then we pick it up.',
+      isOwn: false,
+      timeLabel: '8:02 AM',
+      dateSeparator: 'Today',
+    },
+    {
+      id: 'm7',
+      text: 'Sounds good to me.',
+      isOwn: true,
+      timeLabel: '8:05 AM',
+    },
   ],
 };
