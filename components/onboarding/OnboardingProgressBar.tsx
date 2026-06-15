@@ -10,13 +10,12 @@ export function OnboardingProgressBar({
   totalSteps = 4,
 }: OnboardingProgressBarProps) {
   return (
-    <View className="flex-row gap-2 px-5 pt-4">
+    <View className="flex-row gap-2">
       {Array.from({ length: totalSteps }).map((_, i) => (
         <View
           key={i}
-          className={`h-1 flex-1 rounded-full ${
-            i < currentStep ? 'bg-[#A53D13]' : 'bg-border'
-          }`}
+          className="h-1 flex-1 rounded-full"
+          style={{ backgroundColor: i < currentStep ? '#A53D13' : '#EEEDE9' }}
         />
       ))}
     </View>

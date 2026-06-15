@@ -4,6 +4,7 @@ export default function ProfileLayout() {
   return (
     <Stack screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
       <Stack.Screen name="index" />
+      <Stack.Screen name="runner" />
       <Stack.Screen name="edit" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="[id]" />

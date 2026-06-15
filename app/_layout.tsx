@@ -16,6 +16,7 @@ import { useAuthGuard } from '@/hooks/useAuthGuard';
 import { useNotificationSetup } from '@/hooks/useNotifications';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useAuthStore } from '@/store/authStore';
+import { colors } from '@/constants/colors';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -39,6 +40,7 @@ function RootNavigator() {
       />
       <Stack.Screen name="invitations" options={{ headerShown: false, animation: 'slide_from_right' }} />
       <Stack.Screen name="user/[id]" options={{ headerShown: false, animation: 'slide_from_right' }} />
+      <Stack.Screen name="feed-filters" options={{ headerShown: false, animation: 'slide_from_right' }} />
     </Stack>
   );
 }
@@ -62,7 +64,7 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.page }}>
       <AppProviders>
         <RootNavigator />
       </AppProviders>

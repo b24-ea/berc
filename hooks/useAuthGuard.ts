@@ -73,7 +73,7 @@ export function useAuthGuard() {
     if (!profile) return;
 
     if (!profile.is_onboarded) {
-      if (!inOnboarding) router.replace('/(onboarding)/photos' as Href);
+      if (!inOnboarding) router.replace('/(onboarding)/account' as Href);
       return;
     }
 

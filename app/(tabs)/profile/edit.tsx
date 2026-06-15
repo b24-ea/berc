@@ -37,7 +37,7 @@ export default function EditProfileScreen() {
 
   if (!profile) {
     return (
-      <View className="flex-1 items-center justify-center bg-background px-5">
+      <View className="flex-1 items-center justify-center bg-page px-5">
         <Text className="text-lg font-semibold text-text-primary">Profile unavailable</Text>
         <Pressable onPress={() => router.back()} className="mt-4">
           <Text style={{ color: theme.brand }}>Go back</Text>
@@ -105,7 +105,7 @@ export default function EditProfileScreen() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-page">
       <View className="flex-row items-center justify-between px-5 py-4 border-b border-border">
         <Pressable onPress={() => router.back()} hitSlop={10}>
           <Ionicons name="chevron-back" size={24} color="#1A1A1A" />
@@ -182,16 +182,16 @@ export default function EditProfileScreen() {
             onPress={() => goToOnboardingStep('/(onboarding)/photos')}
           />
           <Button
-            label="Edit vibe tags"
+            label="Edit interests"
             variant="secondary"
             fullWidth
-            onPress={() => goToOnboardingStep('/(onboarding)/vibes')}
+            onPress={() => goToOnboardingStep('/(onboarding)/interests')}
           />
           <Button
             label="Edit running info"
             variant="secondary"
             fullWidth
-            onPress={() => goToOnboardingStep('/(onboarding)/running-info')}
+            onPress={() => goToOnboardingStep('/(onboarding)/running')}
           />
         </View>
 

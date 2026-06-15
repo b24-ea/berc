@@ -122,7 +122,7 @@ export default function CreateRunScreen() {
   };
 
   return (
-    <View className="flex-1" style={{ backgroundColor: '#A53D131C' }}>
+    <View className="flex-1 bg-page">
       <View
         className="flex-row items-center justify-between px-5 pb-3 border-b border-border"
         style={{ paddingTop: insets.top + 8 }}

@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { View, Text, Pressable, ScrollView, useWindowDimensions } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { View, Text, Pressable, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -7,15 +7,15 @@ import { Ionicons } from '@expo/vector-icons';
 import type { FeedRun } from '@/types/app';
 import { formatRunDateTime, getFirstName } from '@/utils/formatters';
 import { resolveRequestCTA } from '@/features/requests/api';
+import { getMockUserById } from '@/constants/mockUsers';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
 interface HingeFeedCardProps {
   run: FeedRun;
-  cardHeight: number;
   onJoin: (run: FeedRun) => void;
   onOpenChat: (run: FeedRun) => void;
-  onPass: (run: FeedRun) => void;
+  onAdvance: (run: FeedRun) => void;
 }
 
 function InfoBlock({
@@ -27,7 +27,7 @@ function InfoBlock({
 }) {
   return (
     <View
-      className="rounded-2xl border px-4 py-3.5 mb-3 bg-white"
+      className="rounded-2xl border px-4 py-3.5 mb-3 bg-white mx-4"
       style={{ borderColor: '#E8E4DF' }}
     >
       <Text
@@ -41,18 +41,24 @@ function InfoBlock({
   );
 }
 
+const PHOTO_HEIGHT = 400;
+
 export const HingeFeedCard = React.memo(function HingeFeedCard({
   run,
-  cardHeight,
   onJoin,
   onOpenChat,
-  onPass,
+  onAdvance,
 }: HingeFeedCardProps) {
   const router = useRouter();
-  const { width } = useWindowDimensions();
   const creatorName = getFirstName(run.creator.name);
   const ctaState = resolveRequestCTA(run.requestStatus, undefined);
-  const photoHeight = Math.round(cardHeight * 0.52);
+
+  const photos = useMemo(() => {
+    const mockUser = getMockUserById(run.creator_id);
+    const fromProfile = mockUser?.photos ?? run.creator.photos ?? [];
+    const combined = [...fromProfile, run.image].filter(Boolean) as string[];
+    return [...new Set(combined)];
+  }, [run.creator_id, run.creator.photos, run.image]);
 
   const ctaLabel =
     ctaState === 'requested'
@@ -64,70 +70,85 @@ export const HingeFeedCard = React.memo(function HingeFeedCard({
   const ctaDisabled = ctaState !== 'default' && ctaState !== 'accepted';
 
   const handlePrimary = useCallback(() => {
-    if (ctaState === 'accepted') onOpenChat(run);
-    else if (ctaState === 'default') onJoin(run);
-  }, [ctaState, run, onJoin, onOpenChat]);
+    if (ctaState === 'accepted') {
+      onOpenChat(run);
+      return;
+    }
+    if (ctaState === 'default') {
+      onJoin(run);
+      onAdvance(run);
+    }
+  }, [ctaState, run, onJoin, onOpenChat, onAdvance]);
+
+  const handlePass = useCallback(() => {
+    onAdvance(run);
+  }, [run, onAdvance]);
 
   const vibeLine = run.vibe_tags.slice(0, 3).join(' · ');
+  const heroPhoto = photos[0];
 
   return (
-    <View style={{ height: cardHeight, width, paddingHorizontal: 16, paddingBottom: 8 }}>
-      <View
-        className="flex-1 rounded-3xl overflow-hidden bg-white"
-        style={{
-          shadowColor: '#000',
-          shadowOpacity: 0.08,
-          shadowRadius: 16,
-          shadowOffset: { width: 0, height: 6 },
-        }}
+    <View className="flex-1">
+      <ScrollView
+        key={run.id}
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
       >
-        <Pressable onPress={() => router.push(`/user/${run.creator.id}`)}>
-          <Image
-            source={{ uri: run.image }}
-            style={{ width: '100%', height: photoHeight }}
-            contentFit="cover"
-          />
-          <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.75)']}
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: photoHeight - 120,
-              height: 120,
-            }}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              left: 16,
-              right: 16,
-              top: photoHeight - 72,
-            }}
+        {photos.map((uri, index) => (
+          <Pressable
+            key={`${uri}-${index}`}
+            onPress={() => router.push(`/user/${run.creator.id}`)}
           >
-            <Text className="text-[26px] font-bold text-white">
-              {run.creator.name}
-              {run.creator.age ? `, ${run.creator.age}` : ''}
-            </Text>
-            <View className="flex-row items-center mt-1 gap-2 flex-wrap">
-              <View className="flex-row items-center gap-1">
-                <Ionicons name="location" size={13} color="#fff" />
-                <Text className="text-sm font-medium text-white">
-                  {run.creator.city ?? 'London'}
-                </Text>
-              </View>
-              {run.distanceKm != null ? (
-                <Text className="text-sm text-white/90">{run.distanceKm} km away</Text>
-              ) : null}
+            <View style={{ position: 'relative' }}>
+              <Image
+                source={{ uri }}
+                style={{ width: '100%', height: PHOTO_HEIGHT }}
+                contentFit="cover"
+              />
+            {index === 0 && heroPhoto ? (
+              <>
+                <LinearGradient
+                  colors={['transparent', 'rgba(0,0,0,0.75)']}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: 140,
+                  }}
+                />
+                <View
+                  style={{
+                    position: 'absolute',
+                    left: 20,
+                    right: 20,
+                    bottom: 20,
+                  }}
+                >
+                  <Text className="text-[28px] font-bold text-white">
+                    {run.creator.name}
+                    {run.creator.age ? `, ${run.creator.age}` : ''}
+                  </Text>
+                  <View className="flex-row items-center mt-2 gap-2 flex-wrap">
+                    <View className="flex-row items-center gap-1">
+                      <Ionicons name="location" size={13} color="#fff" />
+                      <Text className="text-sm font-medium text-white">
+                        {run.creator.city ?? 'London'}
+                      </Text>
+                    </View>
+                    {run.distanceKm != null ? (
+                      <Text className="text-sm text-white/90">{run.distanceKm} km away</Text>
+                    ) : null}
+                  </View>
+                </View>
+              </>
+            ) : null}
             </View>
-          </View>
-        </Pressable>
+          </Pressable>
+        ))}
 
-        <ScrollView
-          className="flex-1 px-4 pt-3"
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-        >
+        <View className="pt-2">
           <InfoBlock label="Upcoming run">
             <Text className="text-[17px] font-semibold text-text-primary leading-snug">
               {run.title}
@@ -152,44 +173,46 @@ export const HingeFeedCard = React.memo(function HingeFeedCard({
               </Text>
             ) : null}
           </InfoBlock>
-        </ScrollView>
-
-        <View className="flex-row items-center justify-center gap-5 px-4 pb-5 pt-1">
-          <Pressable
-            onPress={() => onPass(run)}
-            className="w-14 h-14 rounded-full items-center justify-center border-2 bg-white"
-            style={{ borderColor: '#D9D4CE' }}
-          >
-            <Ionicons name="close" size={28} color={colors.textSecondary} />
-          </Pressable>
-
-          <Pressable
-            onPress={handlePrimary}
-            disabled={ctaDisabled}
-            className="flex-1 max-w-[220px] h-14 rounded-full items-center justify-center"
-            style={{
-              backgroundColor: ctaDisabled ? theme.cardMuted : theme.brand,
-            }}
-          >
-            <View className="flex-row items-center gap-2">
-              {ctaState === 'default' ? (
-                <Ionicons name="footsteps" size={20} color="#fff" />
-              ) : (
-                <Ionicons
-                  name={ctaState === 'accepted' ? 'chatbubble' : 'time-outline'}
-                  size={18}
-                  color={ctaDisabled ? colors.textSecondary : '#fff'}
-                />
-              )}
-              <Text
-                className="text-base font-bold"
-                style={{ color: ctaDisabled ? colors.textSecondary : '#fff' }}
-              >
-                {ctaLabel}
-              </Text>
-            </View>
-          </Pressable>
         </View>
+      </ScrollView>
+
+      <View
+        className="absolute left-0 right-0 bottom-0 flex-row items-center justify-center gap-5 px-4 py-4 border-t border-border bg-background"
+      >
+        <Pressable
+          onPress={handlePass}
+          className="w-14 h-14 rounded-full items-center justify-center border-2 bg-white"
+          style={{ borderColor: '#D9D4CE' }}
+        >
+          <Ionicons name="close" size={28} color={colors.textSecondary} />
+        </Pressable>
+
+        <Pressable
+          onPress={handlePrimary}
+          disabled={ctaDisabled}
+          className="flex-1 max-w-[220px] h-14 rounded-full items-center justify-center"
+          style={{
+            backgroundColor: ctaDisabled ? theme.cardMuted : theme.brand,
+          }}
+        >
+          <View className="flex-row items-center gap-2">
+            {ctaState === 'default' ? (
+              <Ionicons name="footsteps" size={20} color="#fff" />
+            ) : (
+              <Ionicons
+                name={ctaState === 'accepted' ? 'chatbubble' : 'time-outline'}
+                size={18}
+                color={ctaDisabled ? colors.textSecondary : '#fff'}
+              />
+            )}
+            <Text
+              className="text-base font-bold"
+              style={{ color: ctaDisabled ? colors.textSecondary : '#fff' }}
+            >
+              {ctaLabel}
+            </Text>
+          </View>
+        </Pressable>
       </View>
     </View>
   );

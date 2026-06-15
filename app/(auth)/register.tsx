@@ -1,16 +1,28 @@
-import { View, Text, Pressable } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { View } from 'react-native';
+import { useRouter, type Href } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Screen } from '@/components/ui/Screen';
+import {
+  AuthScreen,
+  AuthWordmark,
+  AuthHeading,
+  AuthOrDivider,
+  AuthFooterLink,
+} from '@/components/auth/AuthScreen';
+import { AuthPrimaryButton, AuthSocialButtons } from '@/components/auth/AuthButtons';
 import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
-import { useEmailRegister } from '@/features/auth/hooks';
+import {
+  useAppleSignIn,
+  useEmailRegister,
+  useGoogleSignIn,
+} from '@/features/auth/hooks';
 import { registerSchema, type RegisterFormValues } from '@/utils/validators';
 
 export default function RegisterScreen() {
   const router = useRouter();
   const register = useEmailRegister();
+  const appleSignIn = useAppleSignIn();
+  const googleSignIn = useGoogleSignIn();
 
   const { control, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -19,24 +31,28 @@ export default function RegisterScreen() {
 
   const onSubmit = handleSubmit(async (values) => {
     await register.mutateAsync(values);
-    router.replace('/(onboarding)/photos');
+    router.replace('/(onboarding)/interests' as Href);
   });
 
-  return (
-    <Screen className="justify-center">
-      <Text className="text-3xl font-bold text-text-primary mb-2">Join runr</Text>
-      <Text className="text-base text-text-secondary mb-8">
-        Meet through running. Create your account to get started.
-      </Text>
+  const goAfterSocial = () => router.replace('/(onboarding)/account' as Href);
 
-      <View className="gap-4 mb-6">
+  return (
+    <AuthScreen>
+      <AuthWordmark />
+      <AuthHeading
+        title="Create account"
+        subtitle="Meet through running. Your next partner is out there."
+      />
+
+      <View className="gap-4">
         <Controller
           control={control}
           name="name"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
+              variant="auth"
               label="Name"
-              placeholder="Your name"
+              placeholder="Enter your name"
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -49,7 +65,9 @@ export default function RegisterScreen() {
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
+              variant="auth"
               label="Email"
+              placeholder="Enter your email"
               autoCapitalize="none"
               keyboardType="email-address"
               value={value}
@@ -64,7 +82,9 @@ export default function RegisterScreen() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
+              variant="auth"
               label="Password"
+              placeholder="Create a password"
               secureTextEntry
               value={value}
               onChangeText={onChange}
@@ -78,7 +98,9 @@ export default function RegisterScreen() {
           name="confirmPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
+              variant="auth"
               label="Confirm password"
+              placeholder="Confirm your password"
               secureTextEntry
               value={value}
               onChangeText={onChange}
@@ -89,21 +111,28 @@ export default function RegisterScreen() {
         />
       </View>
 
-      <Button
-        label="Create Account"
-        fullWidth
-        loading={register.isPending}
-        onPress={onSubmit}
+      <View className="mt-6">
+        <AuthPrimaryButton
+          label="Create account"
+          loading={register.isPending}
+          onPress={onSubmit}
+        />
+      </View>
+
+      <AuthOrDivider />
+
+      <AuthSocialButtons
+        onApplePress={() => appleSignIn.mutate(undefined, { onSuccess: goAfterSocial })}
+        onGooglePress={() => googleSignIn.mutate(undefined, { onSuccess: goAfterSocial })}
+        appleLoading={appleSignIn.isPending}
+        googleLoading={googleSignIn.isPending}
       />
 
-      <Pressable className="mt-8 items-center">
-        <Link href="/(auth)/login" asChild>
-          <Text className="text-sm text-text-secondary">
-            Already have an account?{' '}
-            <Text className="text-accent font-medium">Sign in</Text>
-          </Text>
-        </Link>
-      </Pressable>
-    </Screen>
+      <AuthFooterLink
+        prefix="Already have an account?"
+        linkLabel="Sign in"
+        onPress={() => router.push('/(auth)/login')}
+      />
+    </AuthScreen>
   );
 }

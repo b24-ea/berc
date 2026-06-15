@@ -34,24 +34,6 @@ function TabIcon({
   return <Ionicons name={name} size={size} color={color} />;
 }
 
-function CreateTabIcon({ focused }: { focused: boolean }) {
-  return (
-    <View
-      style={{
-        backgroundColor: theme.brand,
-        width: focused ? 54 : 52,
-        height: focused ? 54 : 52,
-        borderRadius: 27,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -14,
-      }}
-    >
-      <Ionicons name="add" size={24} color="#fff" />
-    </View>
-  );
-}
-
 export default function TabLayout() {
   return (
     <Tabs
@@ -72,7 +54,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="feed"
         options={{
-          title: 'Feed',
+          title: 'Home',
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon
               name={focused ? 'home' : 'home-outline'}
@@ -84,19 +66,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="people"
+        name="recommendations"
         options={{
-          title: 'People',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-outline" size={size} color={color} />
+          title: 'Recommendations',
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon
+              name={focused ? 'sparkles' : 'sparkles-outline'}
+              focused={focused}
+              color={color}
+              size={size}
+            />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="create"
-        options={{
-          title: 'Create',
-          tabBarIcon: ({ focused }) => <CreateTabIcon focused={focused} />,
         }}
       />
       <Tabs.Screen
@@ -120,6 +100,18 @@ export default function TabLayout() {
               size={size}
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="people"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          href: null,
         }}
       />
     </Tabs>

@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { useRouter, type Href } from 'expo-router';
-import { useFocusEffect } from 'expo-router';
+import { useRouter, useFocusEffect, type Href } from 'expo-router';
 import { AccountProfileView } from '@/components/profile/AccountProfileView';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -28,7 +27,7 @@ export default function ProfileScreen() {
 
   if (!profile) {
     return (
-      <View className="flex-1 bg-background">
+      <View className="flex-1 bg-page">
         <EmptyState
           title="Profile unavailable"
           subtitle="Sign in or use developer mode to view your profile."
@@ -52,7 +51,8 @@ export default function ProfileScreen() {
     <AccountProfileView
       user={profile}
       showDevActions
-      onEditProfile={() => router.push('/(tabs)/profile/edit')}
+      onViewRunnerProfile={() => router.push('/(tabs)/profile/runner' as Href)}
+      onEditProfile={() => router.push('/(tabs)/profile/edit' as Href)}
       onSignOut={handleSignOut}
       onSettingsPress={() => router.push('/(tabs)/profile/settings')}
     />

@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ChatListItemRow } from '@/components/chat/ChatListItem';
 import { AppTopBar } from '@/components/ui/AppTopBar';
+import { PageTitleHeader } from '@/components/ui/PageTitleHeader';
 import { useAuthStore } from '@/store/authStore';
 import { useChats } from '@/features/chat/hooks';
 import type { ChatListItem } from '@/types/app';
@@ -27,10 +28,10 @@ export default function ChatsScreen() {
   }, [showEmptyDemo, hasRealChats, chats, isDevBypass]);
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-page">
       <AppTopBar onRightIconPress={() => router.push('/invitations')} />
       <View className="h-px bg-border" />
-      <Text className="text-[46px] font-bold text-text-primary px-5 mt-8 mb-5">Chats</Text>
+      <PageTitleHeader title="Chats" size="lg" />
 
       {isLoading && !isDevBypass ? (
         <View className="flex-1 items-center justify-center">

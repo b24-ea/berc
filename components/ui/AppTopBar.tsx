@@ -37,7 +37,7 @@ export function AppTopBar({
   return (
     <View
       className="flex-row items-center justify-between px-5 pb-3"
-      style={{ paddingTop: insets.top + 8 }}
+      style={{ paddingTop: insets.top + 8, backgroundColor: colors.background }}
     >
       <View
         pointerEvents="none"
@@ -54,7 +54,7 @@ export function AppTopBar({
             transform: [{ translateX: -4 }],
           }}
         >
-          runr
+          berc
         </Text>
       </View>
 

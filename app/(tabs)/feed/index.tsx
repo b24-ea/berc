@@ -1,12 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { View, ActivityIndicator, useWindowDimensions } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
+import { View, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { FeedTopBar } from '@/components/feed/FeedTopBar';
-import { FeedFiltersSheet } from '@/components/feed/FeedFiltersSheet';
-import { HingeFeedCard } from '@/components/feed/HingeFeedCard';
+import { FeeldFeedCard } from '@/components/feed/FeeldFeedCard';
 import { useAuthStore } from '@/store/authStore';
 import { useUserStore } from '@/store/userStore';
 import { useRunsStore } from '@/store/runsStore';
@@ -17,27 +14,17 @@ import { MOCK_FEED_RUNS } from '@/constants/mockFeed';
 import type { FeedRun } from '@/types/app';
 import { theme } from '@/constants/theme';
 
-const TAB_BAR_HEIGHT = 88;
-
 export default function FeedScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const { height: windowHeight } = useWindowDimensions();
   const userId = useAuthStore((s) => s.user?.id);
   const isDevBypass = useAuthStore((s) => s.isDevBypass);
   const profile = useUserStore((s) => s.profile);
-  const { feedCity, feedRadius, setFeedFilters } = useUserStore();
-  const { activeFilter, setActiveFilter } = useRunsStore();
+  const { feedCity, feedRadius } = useUserStore();
+  const { activeFilter, genderFilter, distanceFilter } = useRunsStore();
   const createRequest = useCreateRunRequest();
   const { data: chats } = useChats(isDevBypass ? undefined : userId);
   const [mockRequestStatus, setMockRequestStatus] = useState<Record<string, FeedRun['requestStatus']>>({});
-  const [passedRunIds, setPassedRunIds] = useState<string[]>([]);
-  const [genderFilter, setGenderFilter] = useState<'all' | 'women' | 'men'>('all');
-  const [distanceFilter, setDistanceFilter] = useState<'all' | 'short' | 'medium' | 'long'>('all');
-  const [showFiltersPanel, setShowFiltersPanel] = useState(false);
-
-  const headerHeight = insets.top + 56;
-  const cardHeight = windowHeight - headerHeight - TAB_BAR_HEIGHT;
+  const [reviewedRunIds, setReviewedRunIds] = useState<string[]>([]);
 
   const MOCK_GENDER_BY_CREATOR: Record<string, 'women' | 'men'> = {
     'mock-user-1': 'women',
@@ -54,7 +41,7 @@ export default function FeedScreen() {
 
   const filters = useMemo(
     () => ({
-      city: feedCity || profile?.city || 'London',
+      city: feedCity || profile?.city || 'Brooklyn',
       radius: feedRadius,
       activeFilter,
     }),
@@ -63,9 +50,8 @@ export default function FeedScreen() {
 
   const {
     data,
-    fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
+    fetchNextPage,
     isLoading,
     isError,
     refetch,
@@ -81,7 +67,7 @@ export default function FeedScreen() {
         : apiRuns;
 
     const filtered = sourceRuns.filter((run) => {
-      if (passedRunIds.includes(run.id)) return false;
+      if (reviewedRunIds.includes(run.id)) return false;
 
       const lowerTags = run.vibe_tags.map((t) => t.toLowerCase());
 
@@ -137,10 +123,12 @@ export default function FeedScreen() {
     genderFilter,
     distanceFilter,
     mockRequestStatus,
-    passedRunIds,
+    reviewedRunIds,
   ]);
 
-  const displayCity = feedCity || profile?.city || 'London';
+  const currentRun = runs[0] ?? null;
+
+  const displayCity = feedCity || profile?.city || 'Brooklyn';
   const activeFilterCount = useMemo(() => {
     let count = 0;
     if (activeFilter !== 'nearby') count += 1;
@@ -150,16 +138,21 @@ export default function FeedScreen() {
     return count;
   }, [activeFilter, genderFilter, distanceFilter, feedRadius]);
 
+  const advanceToNext = useCallback((run: FeedRun) => {
+    setReviewedRunIds((prev) => (prev.includes(run.id) ? prev : [...prev, run.id]));
+    if (hasNextPage) fetchNextPage();
+  }, [hasNextPage, fetchNextPage]);
+
   const handleJoin = useCallback(
     (run: FeedRun) => {
-      if (!userId) return;
+      if (!userId && !isDevBypass) return;
       const isMockRun = run.id.startsWith('mock-');
       if (isMockRun || isDevBypass) {
         setMockRequestStatus((prev) => ({ ...prev, [run.id]: 'pending' }));
         return;
       }
       createRequest.mutate(
-        { runId: run.id, requesterId: userId },
+        { runId: run.id, requesterId: userId! },
         {
           onSuccess: () => {
             setMockRequestStatus((prev) => ({ ...prev, [run.id]: 'pending' }));
@@ -182,103 +175,53 @@ export default function FeedScreen() {
     [chats, router],
   );
 
-  const handlePass = useCallback((run: FeedRun) => {
-    setPassedRunIds((prev) => (prev.includes(run.id) ? prev : [...prev, run.id]));
-  }, []);
-
-  const renderItem = useCallback(
-    ({ item }: { item: FeedRun }) => (
-      <HingeFeedCard
-        run={item}
-        cardHeight={cardHeight}
-        onJoin={handleJoin}
-        onOpenChat={handleOpenChat}
-        onPass={handlePass}
-      />
-    ),
-    [cardHeight, handleJoin, handleOpenChat, handlePass],
-  );
-
-  const listHeader = (
-    <>
+  return (
+    <View className="flex-1 bg-page">
       <FeedTopBar
         city={displayCity}
-        onFiltersPress={() => setShowFiltersPanel((s) => !s)}
-        filtersActive={activeFilterCount > 0 || showFiltersPanel}
+        onFiltersPress={() => router.push('/feed-filters')}
+        filtersActive={activeFilterCount > 0}
       />
-      <FeedFiltersSheet
-        visible={showFiltersPanel}
-        activeFilter={activeFilter}
-        onFilterChange={setActiveFilter}
-        genderFilter={genderFilter}
-        onGenderChange={setGenderFilter}
-        distanceFilter={distanceFilter}
-        onDistanceChange={setDistanceFilter}
-        feedRadius={feedRadius}
-        onRadiusChange={(r) => setFeedFilters(displayCity, r)}
-        onClose={() => setShowFiltersPanel(false)}
-      />
-    </>
-  );
 
-  return (
-    <View className="flex-1" style={{ backgroundColor: theme.surface }}>
       {isLoading && !isDevBypass ? (
-        <View className="flex-1">
-          {listHeader}
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator color={theme.brand} />
-          </View>
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator color={theme.brand} />
         </View>
       ) : isError && !isDevBypass ? (
-        <View className="flex-1">
-          {listHeader}
-          <EmptyState
-            title="Something went wrong"
-            subtitle="Pull to refresh and try again."
-          />
-        </View>
-      ) : runs.length === 0 ? (
-        <View className="flex-1">
-          {listHeader}
-          <EmptyState
-            title={
-              passedRunIds.length > 0
-                ? 'You reviewed everyone for now'
-                : activeFilter !== 'nearby'
-                  ? 'No runs match your filters'
-                  : 'No runs nearby yet'
-            }
-            subtitle={
-              passedRunIds.length > 0
-                ? 'Check People to discover more runners.'
-                : 'Try adjusting filters or post your own run.'
-            }
-          />
-        </View>
-      ) : (
-        <FlashList
-          data={runs}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          ListHeaderComponent={listHeader}
-          contentInsetAdjustmentBehavior="never"
-          automaticallyAdjustContentInsets={false}
-          showsVerticalScrollIndicator={false}
-          snapToInterval={cardHeight}
-          decelerationRate="fast"
-          disableIntervalMomentum
-          onEndReached={() => hasNextPage && fetchNextPage()}
-          onEndReachedThreshold={0.5}
-          refreshing={isRefetching}
-          onRefresh={refetch}
-          ListFooterComponent={
-            isFetchingNextPage ? (
-              <ActivityIndicator color={theme.brand} style={{ marginVertical: 16 }} />
-            ) : null
+        <EmptyState
+          title="Something went wrong"
+          subtitle="Pull to refresh and try again."
+        />
+      ) : !currentRun ? (
+        <EmptyState
+          title={
+            reviewedRunIds.length > 0
+              ? 'You reviewed everyone for now'
+              : activeFilter !== 'nearby'
+                ? 'No runs match your filters'
+                : 'No runs nearby yet'
+          }
+          subtitle={
+            reviewedRunIds.length > 0
+              ? 'Check People to discover more runners.'
+              : 'Try adjusting filters or post your own run.'
           }
         />
+      ) : (
+        <FeeldFeedCard
+          key={currentRun.id}
+          run={currentRun}
+          onJoin={handleJoin}
+          onOpenChat={handleOpenChat}
+          onAdvance={advanceToNext}
+        />
       )}
+
+      {isRefetching ? (
+        <View className="absolute top-24 self-center">
+          <ActivityIndicator color={theme.brand} size="small" />
+        </View>
+      ) : null}
     </View>
   );
 }

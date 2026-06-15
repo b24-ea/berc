@@ -18,7 +18,7 @@ export function Screen({
 
   return (
     <Container
-      className={cn('flex-1 bg-background', padded && 'px-5', className)}
+      className={cn('flex-1 bg-page', padded && 'px-5', className)}
       {...props}
     >
       {children}

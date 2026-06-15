@@ -16,6 +16,27 @@ export const loginSchema = z.object({
   password: passwordSchema,
 });
 
+export const onboardingAccountBaseSchema = z.object({
+  firstName: z.string().min(2, 'First name is required'),
+  lastName: z.string().min(2, 'Last name is required'),
+  email: emailSchema,
+  gender: z.enum(['women', 'men', 'non_binary', 'prefer_not_to_say'], {
+    message: 'Select your gender',
+  }),
+});
+
+export const onboardingAccountSchema = onboardingAccountBaseSchema
+  .extend({
+    password: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
+
+export const onboardingAccountSessionSchema = onboardingAccountBaseSchema;
+
 export const registerSchema = z
   .object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -53,6 +74,10 @@ export const onboardingRunningInfoSchema = z.object({
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export type RegisterFormValues = z.infer<typeof registerSchema>;
+export type OnboardingAccountFormValues = z.infer<typeof onboardingAccountSchema>;
+export type OnboardingAccountSessionFormValues = z.infer<
+  typeof onboardingAccountSessionSchema
+>;
 export type CreateRunFormValues = z.infer<typeof createRunSchema>;
 
 export function validatePhotos(

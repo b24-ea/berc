@@ -4,7 +4,7 @@ import type { RunRow } from '@/types/database';
 
 const BIOS: Record<string, string> = {
   'mock-user-1':
-    'Early bird runner on the Thames. Love social miles and post-run coffee.',
+    'Marathoner training for Berlin. I love early morning miles and finding new routes through the city. Looking for consistent partners who enjoy tempo work and post-run coffee.',
   'mock-user-2':
     'Trail lover and weekend long-run specialist. Always up for a chill pace.',
   'mock-user-3':
@@ -20,13 +20,13 @@ const BIOS: Record<string, string> = {
   'mock-user-8':
     'Recovery-run advocate. Easy pace, good vibes, no ego.',
   'mock-user-9':
-    'Morning river routes and weekend progression runs. Runnr Crew regular.',
+    'River runner who prefers conversation over pace. Richmond loops at sunrise are my happy place.',
   'mock-user-10':
     'Coffee-run enthusiast. Quick sprints, great playlists, always on time.',
 };
 
 const STATS: Record<string, { weekly_km: number; average_pace: string; favourite_route: string }> = {
-  'mock-user-1': { weekly_km: 48, average_pace: '5:10', favourite_route: 'Thames Southbank' },
+  'mock-user-1': { weekly_km: 45, average_pace: '5:30', favourite_route: 'Prospect Park Loop' },
   'mock-user-2': { weekly_km: 62, average_pace: '5:35', favourite_route: 'Hampstead Heath' },
   'mock-user-3': { weekly_km: 41, average_pace: '4:58', favourite_route: 'Regent Park' },
   'mock-user-4': { weekly_km: 55, average_pace: '5:05', favourite_route: 'Canary Wharf Loop' },
@@ -56,7 +56,7 @@ function buildMockUser(creatorId: string): UserRow | null {
     weekly_km: stats.weekly_km,
     average_pace: stats.average_pace,
     favourite_route: stats.favourite_route,
-    run_club: 'Runnr Crew',
+    run_club: 'berc Crew',
     discovery_radius: 10,
     is_onboarded: true,
     last_active_at: now,

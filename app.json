@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "runr",
+    "name": "berc",
     "slug": "runnr",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -41,7 +41,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow runr to access your photos for your profile and runs."
+          "photosPermission": "Allow berc to access your photos for your profile and runs."
         }
       ],
       [

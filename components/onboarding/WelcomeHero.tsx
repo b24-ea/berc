@@ -1,17 +1,41 @@
-import { View, Pressable, StyleSheet } from 'react-native';
-import { Image } from 'expo-image';
+import { View, Text, Pressable } from 'react-native';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { DevBypassButton } from '@/components/dev/DevBypassButton';
+import { theme } from '@/constants/theme';
+
+const RING_SIZES = [140, 220, 300, 380, 460, 540];
+
+function WelcomeRings() {
+  return (
+    <View
+      pointerEvents="none"
+      className="absolute items-center justify-center"
+      style={{ width: '100%', height: '100%' }}
+    >
+      {RING_SIZES.map((size) => (
+        <View
+          key={size}
+          style={{
+            position: 'absolute',
+            width: size,
+            height: size,
+            borderRadius: size / 2,
+            borderWidth: 1,
+            borderColor: `${theme.brand}14`,
+          }}
+        />
+      ))}
+    </View>
+  );
+}
 
 interface WelcomeHeroProps {
   showSignIn?: boolean;
   onGetStarted?: () => void;
 }
 
-/**
- * Full-bleed design asset — copy and CTAs are baked into welcome-hero.png.
- * Only invisible touch targets are overlaid here.
- */
 export function WelcomeHero({ showSignIn = true, onGetStarted }: WelcomeHeroProps) {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -25,33 +49,63 @@ export function WelcomeHero({ showSignIn = true, onGetStarted }: WelcomeHeroProp
   };
 
   return (
-    <View className="flex-1 bg-black">
-      <Image
-        source={require('@/assets/images/welcome-hero.png')}
-        style={StyleSheet.absoluteFill}
-        contentFit="cover"
-      />
+    <View className="flex-1 bg-page">
+      <WelcomeRings />
 
-      <View
-        className="flex-1 justify-end"
-        style={{ paddingBottom: insets.bottom + 20 }}
-      >
-        {/* Get Started — matches button in design asset */}
-        <Pressable
-          onPress={handleGetStarted}
-          accessibilityRole="button"
-          accessibilityLabel="Get Started"
-          style={{ marginHorizontal: 24, height: 56, marginBottom: showSignIn ? 12 : 0 }}
-        />
+      <View className="flex-1 items-center justify-center px-8">
+        <Animated.View entering={FadeIn.duration(600)} className="items-center">
+          <Animated.Text
+            entering={FadeInDown.duration(700).springify().damping(20)}
+            style={{
+              fontSize: 72,
+              fontWeight: '700',
+              color: theme.brand,
+              letterSpacing: -3,
+              lineHeight: 76,
+            }}
+          >
+            berc
+          </Animated.Text>
+          <Animated.Text
+            entering={FadeIn.delay(250).duration(500)}
+            className="text-[17px] text-text-primary text-center mt-3"
+            style={{ color: '#3D2E28' }}
+          >
+            Meet through running.
+          </Animated.Text>
+        </Animated.View>
+      </View>
 
-        {showSignIn && (
+      <View className="px-6" style={{ paddingBottom: insets.bottom + 24 }}>
+        <Animated.View entering={FadeInDown.delay(400).duration(600)}>
           <Pressable
-            onPress={() => router.push('/(auth)/login')}
-            accessibilityRole="button"
-            accessibilityLabel="Sign in"
-            style={{ marginHorizontal: 24, height: 44 }}
-          />
-        )}
+            onPress={handleGetStarted}
+            className="h-[52px] rounded-full items-center justify-center"
+            style={{ backgroundColor: theme.brand }}
+          >
+            <Text className="text-base font-bold text-white">Get Started</Text>
+          </Pressable>
+        </Animated.View>
+
+        {showSignIn ? (
+          <Animated.View entering={FadeIn.delay(550).duration(500)}>
+            <Pressable
+              onPress={() => router.push('/(auth)/login')}
+              className="py-4 items-center"
+              accessibilityRole="button"
+              accessibilityLabel="Sign in"
+            >
+              <Text className="text-base" style={{ color: '#3D2E28' }}>
+                Already have an account?{' '}
+                <Text className="font-semibold" style={{ color: theme.brand }}>
+                  Sign in
+                </Text>
+              </Text>
+            </Pressable>
+          </Animated.View>
+        ) : null}
+
+        <DevBypassButton variant="light" />
       </View>
     </View>
   );

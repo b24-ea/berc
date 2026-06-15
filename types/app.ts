@@ -18,6 +18,10 @@ export type RunCardCTAState =
   | 'declined';
 
 export interface OnboardingData {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  gender?: string;
   photos: string[];
   runningPhotoIndices: number[];
   vibeTags: string[];

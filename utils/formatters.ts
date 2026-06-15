@@ -45,3 +45,19 @@ export function formatUserLocation(city: string | null | undefined): string {
 export function getFirstName(fullName: string): string {
   return fullName.split(' ')[0] ?? fullName;
 }
+
+export function formatDistanceAway(km: number | null | undefined): string {
+  if (km == null) return '';
+  const miles = km * 0.621371;
+  return `${miles.toFixed(1)} mi away`;
+}
+
+export function formatRunScheduleLine(isoDate: string): string {
+  const date = parseISO(isoDate);
+  return `${format(date, 'EEEE')} • ${format(date, 'h:mm a')}`;
+}
+
+export function formatRunDateBlock(isoDate: string): { month: string; day: string } {
+  const date = parseISO(isoDate);
+  return { month: format(date, 'MMM').toUpperCase(), day: format(date, 'd') };
+}

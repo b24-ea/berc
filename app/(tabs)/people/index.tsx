@@ -84,7 +84,7 @@ export default function PeopleScreen() {
   const openInvitations = () => router.push('/invitations' as Href);
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-page">
       <AppTopBar
         rightIconName="notifications-outline"
         rightIconColor={theme.brand}

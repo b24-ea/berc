@@ -3,7 +3,7 @@ export const theme = {
   brandDark: '#8B3213',
   peach: '#FAEDE6',
   peachMuted: '#F5E6DC',
-  surface: '#FAF8F5',
+  surface: '#FAEDE6',
   card: '#F5F0EA',
   cardMuted: '#EEEBE6',
 } as const;

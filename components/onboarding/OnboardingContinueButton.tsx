@@ -1,4 +1,5 @@
 import { Pressable, Text, ActivityIndicator } from 'react-native';
+import { theme } from '@/constants/theme';
 
 interface OnboardingContinueButtonProps {
   label?: string;
@@ -17,17 +18,15 @@ export function OnboardingContinueButton({
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
-      className={`w-full py-4 rounded-full items-center justify-center ${
-        disabled ? 'bg-[#E8E2D9]' : 'bg-[#E8673A]'
-      }`}
+      className="w-full h-[52px] rounded-full items-center justify-center"
+      style={{ backgroundColor: disabled ? '#E8E2D9' : theme.brand }}
     >
       {loading ? (
         <ActivityIndicator color="#fff" />
       ) : (
         <Text
-          className={`text-base font-semibold ${
-            disabled ? 'text-[#9A9A9A]' : 'text-white'
-          }`}
+          className="text-base font-bold"
+          style={{ color: disabled ? '#9A9A9A' : '#fff' }}
         >
           {label}
         </Text>

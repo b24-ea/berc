@@ -2,6 +2,12 @@
 
 A premium social lifestyle app where people naturally connect through running.
 
+## Product plan
+
+Simplified MVP direction (single-user home, minimal tabs, filters later):
+
+**[docs/MVP_SIMPLIFICATION.md](./docs/MVP_SIMPLIFICATION.md)**
+
 ## Stack
 
 - React Native (Expo SDK 56)

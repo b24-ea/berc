@@ -8,6 +8,6 @@ export const config = {
   requestExpiryHours: 24,
   requestExpiryWarningHours: 2,
   maxImageSizeBytes: 1_024_000,
-  minPhotos: 4,
+  minPhotos: 3,
   minVibeTags: 2,
 } as const;

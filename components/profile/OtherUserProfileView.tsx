@@ -40,10 +40,10 @@ export function OtherUserProfileView({
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-page">
       <View
         className="flex-row items-center px-5 pb-3 border-b border-border"
-        style={{ paddingTop: insets.top + 8 }}
+        style={{ paddingTop: insets.top + 8, backgroundColor: colors.background }}
       >
         <Pressable onPress={onBack} hitSlop={10} className="w-10 h-10 justify-center">
           <Ionicons name="chevron-back" size={24} color={colors.textPrimary} />
