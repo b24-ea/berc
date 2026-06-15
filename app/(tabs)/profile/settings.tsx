@@ -95,7 +95,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Account
         </Text>
-        <View className="bg-white rounded-2xl px-4 mb-6 border border-border">
+        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
           <SettingsRow label="Edit profile" onPress={() => router.push('/(tabs)/profile/edit')} />
           <SettingsRow
             label="Invitations"
@@ -106,7 +106,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Discovery
         </Text>
-        <View className="bg-white rounded-2xl px-4 mb-6 border border-border">
+        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
           <SettingsRow
             label="Discovery radius"
             onPress={cycleRadius}
@@ -118,7 +118,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Notifications
         </Text>
-        <View className="bg-white rounded-2xl px-4 mb-6 border border-border">
+        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
           <SettingsRow
             label="Push notifications"
             showChevron={false}

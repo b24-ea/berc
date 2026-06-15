@@ -33,7 +33,7 @@ interface FeeldFeedCardProps {
 }
 
 const IMAGE_RADIUS = 20;
-const STAT_BG = '#F3ECE4';
+const STAT_BG = theme.card;
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
@@ -69,7 +69,7 @@ function UpcomingRunCard({
     <View
       className="flex-row items-center rounded-2xl p-3 mb-3 border"
       style={{
-        backgroundColor: featured ? '#FFFDFB' : colors.white,
+        backgroundColor: featured ? theme.card : theme.cardMuted,
         borderColor: featured ? `${theme.brand}22` : colors.border,
       }}
     >
@@ -295,7 +295,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
                 <View
                   key={tag}
                   className="rounded-full px-3.5 py-2"
-                  style={{ backgroundColor: '#F7E8DF' }}
+                  style={{ backgroundColor: theme.card }}
                 >
                   <Text className="text-sm font-semibold" style={{ color: theme.brandDark }}>
                     {tag}
@@ -315,7 +315,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
           </Text>
 
           {userRuns.length === 0 ? (
-            <View className="rounded-2xl p-4 bg-white border border-border">
+            <View className="rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
               <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
             </View>
           ) : (

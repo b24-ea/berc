@@ -145,7 +145,7 @@ export function StreamChatView({
           placeholder="Type a message..."
           placeholderTextColor={colors.muted}
           className="flex-1 rounded-full px-4 py-3 text-[15px] text-text-primary"
-          style={{ backgroundColor: '#F5EDE6' }}
+          style={{ backgroundColor: theme.peach }}
           onSubmitEditing={sendMessage}
           returnKeyType="send"
         />

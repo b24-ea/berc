@@ -18,8 +18,9 @@ export function InvitationPersonRow({ item, onPress, rightContent }: InvitationP
   return (
     <Pressable
       onPress={onPress}
-      className="bg-white rounded-3xl px-4 py-4 mb-3 flex-row items-center"
+      className="rounded-3xl px-4 py-4 mb-3 flex-row items-center"
       style={{
+        backgroundColor: theme.card,
         shadowColor: '#000',
         shadowOpacity: 0.04,
         shadowRadius: 10,

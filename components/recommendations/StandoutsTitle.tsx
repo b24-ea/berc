@@ -8,7 +8,7 @@ export function StandoutsTitle() {
         className="rounded-full px-5 py-2 border"
         style={{
           borderColor: theme.brand,
-          backgroundColor: '#F7E8DF',
+          backgroundColor: theme.peach,
         }}
       >
         <Text

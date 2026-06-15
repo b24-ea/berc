@@ -14,8 +14,9 @@ export function ChatRunCard({ title, datetime, onPress }: ChatRunCardProps) {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center rounded-2xl p-3.5 mb-4 bg-white"
+      className="flex-row items-center rounded-2xl p-3.5 mb-4"
       style={{
+        backgroundColor: theme.card,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.06,
@@ -28,7 +29,7 @@ export function ChatRunCard({ title, datetime, onPress }: ChatRunCardProps) {
         style={{
           width: 44,
           height: 44,
-          backgroundColor: '#F3ECE4',
+          backgroundColor: theme.cardMuted,
         }}
       >
         <Ionicons name="map-outline" size={22} color={theme.brandDark} />

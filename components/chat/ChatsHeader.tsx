@@ -9,7 +9,7 @@ export function ChatsTitlePill() {
         className="rounded-full px-10 py-2.5 border"
         style={{
           borderColor: theme.brand,
-          backgroundColor: '#F7E8DF',
+          backgroundColor: theme.peach,
         }}
       >
         <Text className="text-[22px] font-bold" style={{ color: theme.brandDark }}>

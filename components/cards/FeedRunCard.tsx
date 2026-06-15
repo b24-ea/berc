@@ -55,8 +55,15 @@ export const FeedRunCard = React.memo(function FeedRunCard({
   return (
     <Animated.View
       entering={FadeInDown.delay(index * 60).duration(350)}
-      className="mb-8 bg-white rounded-3xl overflow-hidden"
-      style={{ marginHorizontal: 20, shadowColor: '#000', shadowOpacity: 0.04, shadowRadius: 12, shadowOffset: { width: 0, height: 4 } }}
+      className="mb-8 rounded-3xl overflow-hidden"
+      style={{
+        backgroundColor: theme.card,
+        marginHorizontal: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.04,
+        shadowRadius: 12,
+        shadowOffset: { width: 0, height: 4 },
+      }}
     >
       <Pressable
         onPress={() => router.push(`/user/${run.creator.id}`)}

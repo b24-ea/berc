@@ -4,6 +4,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import type { ChatListItem as ChatListItemType } from '@/types/app';
 import { formatDistanceToNow, isValid, parseISO } from 'date-fns';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 interface ChatListItemProps {
   item: ChatListItemType;
@@ -13,7 +14,7 @@ interface ChatListItemProps {
   unread?: boolean;
 }
 
-const CARD_BG = '#F5EDE6';
+const CARD_BG = theme.card;
 
 function getTimeLabel(lastMessageAt?: string, explicit?: string) {
   if (explicit) return explicit;
@@ -125,8 +126,12 @@ export function ChatRequestRow({
         <Pressable
           onPress={onDecline}
           disabled={declineLoading}
-          className="flex-1 rounded-full py-3 items-center border bg-white"
-          style={{ borderColor: '#E7E2DD', opacity: declineLoading ? 0.7 : 1 }}
+          className="flex-1 rounded-full py-3 items-center border"
+          style={{
+            borderColor: '#E7E2DD',
+            backgroundColor: colors.white,
+            opacity: declineLoading ? 0.7 : 1,
+          }}
         >
           <Text className="text-sm font-bold" style={{ color: theme.brandDark }}>
             Decline

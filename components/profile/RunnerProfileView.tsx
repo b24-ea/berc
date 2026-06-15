@@ -25,7 +25,7 @@ interface RunnerProfileViewProps {
   joinLoading?: boolean;
 }
 
-const STAT_BG = '#F3ECE4';
+const STAT_BG = theme.card;
 
 function SectionLabel({ children }: { children: string }) {
   return (
@@ -96,7 +96,7 @@ function ScheduledRunCard({ run }: { run: RunRow }) {
   return (
     <View
       className="flex-row items-center rounded-2xl p-3 mb-3 border"
-      style={{ backgroundColor: colors.white, borderColor: colors.border }}
+      style={{ backgroundColor: theme.card, borderColor: colors.border }}
     >
       <View
         className="rounded-xl items-center justify-center"
@@ -216,7 +216,7 @@ export function RunnerProfileView({
             {extraCount > 0 ? (
               <View
                 className="rounded-[14px] items-center justify-center"
-                style={{ width: 72, height: 72, backgroundColor: '#F7E8DF' }}
+                style={{ width: 72, height: 72, backgroundColor: theme.card }}
               >
                 <Text className="text-base font-bold" style={{ color: theme.brandDark }}>
                   +{extraCount}
@@ -299,7 +299,7 @@ export function RunnerProfileView({
           </View>
 
           {runs.length === 0 ? (
-            <View className="rounded-2xl p-4 bg-white border border-border">
+            <View className="rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
               <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
             </View>
           ) : (
@@ -313,7 +313,7 @@ export function RunnerProfileView({
           className="absolute left-0 right-0 bottom-0 flex-row gap-3 px-5 pt-3"
           style={{
             paddingBottom: insets.bottom + 12,
-            backgroundColor: 'rgba(250, 237, 230, 0.96)',
+            backgroundColor: colors.background,
           }}
         >
           {primaryRun && onJoinRun ? (

@@ -12,6 +12,7 @@ import { useUpdateProfile } from '@/features/profile/hooks';
 import { isSupabaseConfigured } from '@/services/supabase/client';
 import { DISCOVERY_RADIUS_OPTIONS } from '@/constants/vibes';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 export default function EditProfileScreen() {
   const router = useRouter();
@@ -163,7 +164,7 @@ export default function EditProfileScreen() {
                   className="px-4 py-2 rounded-full border"
                   style={{
                     borderColor: radius === r ? theme.brand : '#EEEDE9',
-                    backgroundColor: radius === r ? '#FAEDE6' : '#fff',
+                    backgroundColor: radius === r ? theme.peach : colors.white,
                   }}
                 >
                   <Text style={{ color: radius === r ? theme.brand : '#6B6B6B' }}>{r} km</Text>

@@ -100,7 +100,8 @@ export default function PeopleScreen() {
       <View className="px-5 mb-4">
         <Pressable
           onPress={openInvitations}
-          className="bg-white rounded-2xl p-3 flex-row items-center justify-between"
+          className="rounded-2xl p-3 flex-row items-center justify-between"
+          style={{ backgroundColor: theme.card }}
         >
           <View>
             <Text className="text-xs uppercase tracking-wide" style={{ color: theme.brand }}>
@@ -151,7 +152,7 @@ export default function PeopleScreen() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 28 }}
         ListEmptyComponent={(
-          <View className="bg-white rounded-3xl p-5 mt-2">
+          <View className="rounded-3xl p-5 mt-2" style={{ backgroundColor: theme.card }}>
             <Text className="text-lg font-semibold text-text-primary">All clear</Text>
             <Text className="text-sm text-text-secondary mt-1">
               {activeFilter === 'discover'
@@ -166,8 +167,9 @@ export default function PeopleScreen() {
           const isInvited = invitedIds.includes(item.id);
           return (
             <View
-              className="bg-white rounded-3xl mb-4 overflow-hidden"
+              className="rounded-3xl mb-4 overflow-hidden"
               style={{
+                backgroundColor: theme.card,
                 shadowColor: '#000',
                 shadowOpacity: 0.04,
                 shadowRadius: 14,

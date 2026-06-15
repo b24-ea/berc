@@ -27,8 +27,8 @@ function InfoBlock({
 }) {
   return (
     <View
-      className="rounded-2xl border px-4 py-3.5 mb-3 bg-white mx-4"
-      style={{ borderColor: '#E8E4DF' }}
+      className="rounded-2xl border px-4 py-3.5 mb-3 mx-4"
+      style={{ backgroundColor: theme.card, borderColor: '#E8E4DF' }}
     >
       <Text
         className="text-[11px] font-semibold uppercase tracking-wider mb-2"

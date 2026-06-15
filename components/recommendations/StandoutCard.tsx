@@ -50,7 +50,7 @@ export const StandoutCard = React.memo(function StandoutCard({
           height,
           borderRadius: 30,
           overflow: 'hidden',
-          backgroundColor: colors.white,
+          backgroundColor: theme.card,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 10 },
           shadowOpacity: 0.14,

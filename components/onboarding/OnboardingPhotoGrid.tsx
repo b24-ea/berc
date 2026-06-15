@@ -30,8 +30,8 @@ export function OnboardingPhotoGrid({
       <Pressable
         key={index}
         onPress={() => onSlotPress(index)}
-        style={{ width: slotWidth, height: slotHeight }}
-        className="rounded-2xl border border-dashed overflow-hidden items-center justify-center bg-white"
+        style={{ width: slotWidth, height: slotHeight, backgroundColor: theme.card }}
+        className="rounded-2xl border border-dashed overflow-hidden items-center justify-center"
       >
         {hasPhoto ? (
           <>

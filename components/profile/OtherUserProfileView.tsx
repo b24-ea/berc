@@ -132,14 +132,15 @@ export function OtherUserProfileView({
         </View>
 
         {runs.length === 0 ? (
-          <View className="mx-5 rounded-2xl p-4 bg-white border border-border">
+          <View className="mx-5 rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
             <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
           </View>
         ) : (
           runs.map((run) => (
             <View
               key={run.id}
-              className="mx-5 mb-3 flex-row items-center rounded-2xl p-3 bg-white border border-border"
+              className="mx-5 mb-3 flex-row items-center rounded-2xl p-3 border border-border"
+              style={{ backgroundColor: theme.card }}
             >
               <Image
                 source={{ uri: run.image }}

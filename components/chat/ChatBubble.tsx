@@ -20,7 +20,7 @@ export function ChatBubble({ content, isOwn, timeLabel }: ChatBubbleProps) {
       <View
         className="px-4 py-3 rounded-2xl"
         style={{
-          backgroundColor: isOwn ? theme.brandDark : colors.white,
+          backgroundColor: isOwn ? theme.brandDark : theme.card,
           borderBottomRightRadius: isOwn ? 6 : 16,
           borderBottomLeftRadius: isOwn ? 16 : 6,
         }}

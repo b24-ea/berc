@@ -185,7 +185,7 @@ export default function CreateRunScreen() {
           </Text>
         )}
 
-        <View className="rounded-3xl border border-border bg-white p-4 gap-4 mb-4">
+        <View className="rounded-3xl border border-border p-4 gap-4 mb-4" style={{ backgroundColor: theme.card }}>
           <Controller
             control={control}
             name="title"
@@ -249,7 +249,7 @@ export default function CreateRunScreen() {
         <Text className="text-xs uppercase tracking-wide mt-1 mb-3" style={{ color: '#A53D13B3' }}>
           Performance & Vibe
         </Text>
-        <View className="rounded-3xl border border-border bg-white p-4 mb-4">
+        <View className="rounded-3xl border border-border p-4 mb-4" style={{ backgroundColor: theme.card }}>
           <View className="flex-row gap-3 mb-3">
             <View className="flex-1">
               <Input
@@ -304,7 +304,7 @@ export default function CreateRunScreen() {
           </View>
         </View>
 
-        <View className="rounded-3xl border border-border bg-white p-4 mt-1 mb-6">
+        <View className="rounded-3xl border border-border p-4 mt-1 mb-6" style={{ backgroundColor: theme.card }}>
           <Controller
             control={control}
             name="note"

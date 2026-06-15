@@ -26,7 +26,7 @@ export function HingeProfileSection({
       >
         {title}
       </Text>
-      <View className="mx-4 rounded-xl bg-white overflow-hidden" style={CARD_SHADOW}>
+      <View className="mx-4 rounded-xl overflow-hidden" style={{ backgroundColor: theme.card, ...CARD_SHADOW }}>
         {children}
       </View>
     </View>

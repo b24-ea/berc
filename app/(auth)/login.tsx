@@ -46,7 +46,7 @@ export default function LoginScreen() {
       />
 
       {!isSupabaseConfigured ? (
-        <View className="bg-white/80 rounded-2xl p-4 mb-6 border border-border">
+        <View className="rounded-2xl p-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
           <Text className="text-sm text-text-primary leading-5">
             Supabase bağlı değil. `.env` dosyasına{' '}
             <Text className="font-semibold">EXPO_PUBLIC_SUPABASE_URL</Text> ve{' '}
