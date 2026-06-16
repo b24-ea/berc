@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import type { RecommendedRunner } from '@/constants/mockRecommendations';
 import { getMockUserById } from '@/constants/mockUsers';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 import { formatUserAge } from '@/utils/formatters';
@@ -51,6 +52,8 @@ export const StandoutCard = React.memo(function StandoutCard({
           borderRadius: 30,
           overflow: 'hidden',
           backgroundColor: theme.card,
+          borderWidth: 1,
+          borderColor: theme.cardBorder,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 10 },
           shadowOpacity: 0.14,

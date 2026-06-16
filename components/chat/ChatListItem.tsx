@@ -3,6 +3,7 @@ import { Image } from 'expo-image';
 import { Avatar } from '@/components/ui/Avatar';
 import type { ChatListItem as ChatListItemType } from '@/types/app';
 import { formatDistanceToNow, isValid, parseISO } from 'date-fns';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -14,7 +15,7 @@ interface ChatListItemProps {
   unread?: boolean;
 }
 
-const CARD_BG = theme.card;
+const CARD_STYLE = cardFrame;
 
 function getTimeLabel(lastMessageAt?: string, explicit?: string) {
   if (explicit) return explicit;
@@ -38,7 +39,7 @@ export function ChatListItemRow({
     <Pressable
       onPress={onPress}
       className="flex-row items-center gap-3 p-3.5 mb-3 rounded-2xl"
-      style={{ backgroundColor: CARD_BG }}
+      style={CARD_STYLE}
     >
       <Avatar
         uri={item.otherUser.photos?.[0]}
@@ -94,7 +95,7 @@ export function ChatRequestRow({
   return (
     <View
       className="rounded-2xl p-4 mb-3"
-      style={{ backgroundColor: CARD_BG }}
+      style={CARD_STYLE}
     >
       <View className="flex-row gap-3 mb-3">
         {photo ? (

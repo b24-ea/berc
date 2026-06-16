@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { cardFrame } from '@/constants/cardStyle';
 import { colors } from '@/constants/colors';
 import { theme } from '@/constants/theme';
 
@@ -26,7 +27,7 @@ export function HingeProfileSection({
       >
         {title}
       </Text>
-      <View className="mx-4 rounded-xl overflow-hidden" style={{ backgroundColor: theme.card, ...CARD_SHADOW }}>
+      <View className="mx-4 rounded-xl overflow-hidden" style={{ ...cardFrame, ...CARD_SHADOW }}>
         {children}
       </View>
     </View>

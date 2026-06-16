@@ -20,6 +20,7 @@ import { useCreateRun } from '@/features/runs/hooks';
 import { createRunSchema, type CreateRunFormValues } from '@/utils/validators';
 import { colors } from '@/constants/colors';
 import { theme } from '@/constants/theme';
+import { cardFrame } from '@/constants/cardStyle';
 import { isSupabaseConfigured } from '@/services/supabase/client';
 import { VIBE_TAGS } from '@/constants/vibes';
 
@@ -185,7 +186,7 @@ export default function CreateRunScreen() {
           </Text>
         )}
 
-        <View className="rounded-3xl border border-border p-4 gap-4 mb-4" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-3xl p-4 gap-4 mb-4" style={cardFrame}>
           <Controller
             control={control}
             name="title"
@@ -249,7 +250,7 @@ export default function CreateRunScreen() {
         <Text className="text-xs uppercase tracking-wide mt-1 mb-3" style={{ color: '#A53D13B3' }}>
           Performance & Vibe
         </Text>
-        <View className="rounded-3xl border border-border p-4 mb-4" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-3xl p-4 mb-4" style={cardFrame}>
           <View className="flex-row gap-3 mb-3">
             <View className="flex-1">
               <Input
@@ -304,7 +305,7 @@ export default function CreateRunScreen() {
           </View>
         </View>
 
-        <View className="rounded-3xl border border-border p-4 mt-1 mb-6" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-3xl p-4 mt-1 mb-6" style={cardFrame}>
           <Controller
             control={control}
             name="note"

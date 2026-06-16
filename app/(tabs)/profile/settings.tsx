@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useUserStore } from '@/store/userStore';
 import { useSignOut } from '@/features/auth/hooks';
 import { exitDevMode } from '@/utils/devBypass';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 import { DISCOVERY_RADIUS_OPTIONS } from '@/constants/vibes';
@@ -95,7 +96,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Account
         </Text>
-        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-2xl px-4 mb-6" style={cardFrame}>
           <SettingsRow label="Edit profile" onPress={() => router.push('/(tabs)/profile/edit')} />
           <SettingsRow
             label="Invitations"
@@ -106,7 +107,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Discovery
         </Text>
-        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-2xl px-4 mb-6" style={cardFrame}>
           <SettingsRow
             label="Discovery radius"
             onPress={cycleRadius}
@@ -118,7 +119,7 @@ export default function SettingsScreen() {
         <Text className="text-xs uppercase tracking-wide mb-2" style={{ color: theme.brand }}>
           Notifications
         </Text>
-        <View className="rounded-2xl px-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-2xl px-4 mb-6" style={cardFrame}>
           <SettingsRow
             label="Push notifications"
             showChevron={false}

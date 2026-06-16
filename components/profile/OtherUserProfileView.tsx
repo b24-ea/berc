@@ -3,6 +3,7 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 import type { RunRow, UserRow } from '@/types/database';
@@ -98,7 +99,7 @@ export function OtherUserProfileView({
           </View>
         )}
 
-        <View className="mx-5 rounded-3xl p-5 mb-4" style={{ backgroundColor: theme.card }}>
+        <View className="mx-5 rounded-3xl p-5 mb-4" style={cardFrame}>
           <Text className="text-lg font-bold text-text-primary mb-2">About</Text>
           <Text className="text-base text-text-secondary leading-6">
             {user.bio ?? 'No bio yet.'}
@@ -132,15 +133,15 @@ export function OtherUserProfileView({
         </View>
 
         {runs.length === 0 ? (
-          <View className="mx-5 rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
+          <View className="mx-5 rounded-2xl p-4" style={cardFrame}>
             <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
           </View>
         ) : (
           runs.map((run) => (
             <View
               key={run.id}
-              className="mx-5 mb-3 flex-row items-center rounded-2xl p-3 border border-border"
-              style={{ backgroundColor: theme.card }}
+              className="mx-5 mb-3 flex-row items-center rounded-2xl p-3"
+              style={cardFrame}
             >
               <Image
                 source={{ uri: run.image }}

@@ -25,7 +25,7 @@ export function FeedFiltersBar({
       <View className="flex-row items-center gap-2 mb-3">
         <Pressable
           onPress={onCityPress}
-          className="flex-row items-center bg-card rounded-full px-4 py-2 border border-border"
+          className="flex-row items-center bg-card rounded-full px-4 py-2 border border-card-border"
         >
           <Text className="text-sm font-medium text-text-primary">
             {city || 'Set city'}

@@ -92,7 +92,7 @@ export function ProfileHeader({
 
 function InfoCard({ label, value }: { label: string; value: string }) {
   return (
-    <View className="bg-card rounded-2xl px-4 py-3 border border-border">
+    <View className="bg-card rounded-2xl px-4 py-3 border border-card-border">
       <Text className="text-xs text-text-secondary uppercase tracking-wide">{label}</Text>
       <Text className="text-base font-medium text-text-primary mt-1">{value}</Text>
     </View>

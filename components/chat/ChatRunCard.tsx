@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { formatRunEventLine } from '@/utils/formatters';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -16,7 +17,7 @@ export function ChatRunCard({ title, datetime, onPress }: ChatRunCardProps) {
       onPress={onPress}
       className="flex-row items-center rounded-2xl p-3.5 mb-4"
       style={{
-        backgroundColor: theme.card,
+        ...cardFrame,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.06,

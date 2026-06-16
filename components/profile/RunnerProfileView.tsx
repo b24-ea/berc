@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppTopBar } from '@/components/ui/AppTopBar';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 import type { RunRow, UserRow } from '@/types/database';
@@ -25,7 +26,7 @@ interface RunnerProfileViewProps {
   joinLoading?: boolean;
 }
 
-const STAT_BG = theme.card;
+const STAT_STYLE = cardFrame;
 
 function SectionLabel({ children }: { children: string }) {
   return (
@@ -53,7 +54,7 @@ function AthleticStatCard({
     <View
       className="rounded-2xl p-4"
       style={{
-        backgroundColor: STAT_BG,
+        ...STAT_STYLE,
         flex: wide ? undefined : 1,
         width: wide ? '100%' : undefined,
       }}
@@ -96,7 +97,7 @@ function ScheduledRunCard({ run }: { run: RunRow }) {
   return (
     <View
       className="flex-row items-center rounded-2xl p-3 mb-3 border"
-      style={{ backgroundColor: theme.card, borderColor: colors.border }}
+      style={{ ...cardFrame }}
     >
       <View
         className="rounded-xl items-center justify-center"
@@ -216,7 +217,7 @@ export function RunnerProfileView({
             {extraCount > 0 ? (
               <View
                 className="rounded-[14px] items-center justify-center"
-                style={{ width: 72, height: 72, backgroundColor: theme.card }}
+                style={{ width: 72, height: 72, ...cardFrame }}
               >
                 <Text className="text-base font-bold" style={{ color: theme.brandDark }}>
                   +{extraCount}
@@ -258,7 +259,7 @@ export function RunnerProfileView({
           <SectionLabel>About</SectionLabel>
           <View
             className="rounded-2xl p-4"
-            style={{ backgroundColor: STAT_BG }}
+            style={cardFrame}
           >
             <Text className="text-[15px] text-text-primary leading-6">
               {user.bio ?? 'No bio yet.'}
@@ -299,7 +300,7 @@ export function RunnerProfileView({
           </View>
 
           {runs.length === 0 ? (
-            <View className="rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
+            <View className="rounded-2xl p-4" style={cardFrame}>
               <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
             </View>
           ) : (

@@ -8,6 +8,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import type { FeedRun } from '@/types/app';
 import { formatRunDateTime, getFirstName } from '@/utils/formatters';
 import { resolveRequestCTA } from '@/features/requests/api';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -57,7 +58,7 @@ export const FeedRunCard = React.memo(function FeedRunCard({
       entering={FadeInDown.delay(index * 60).duration(350)}
       className="mb-8 rounded-3xl overflow-hidden"
       style={{
-        backgroundColor: theme.card,
+        ...cardFrame,
         marginHorizontal: 20,
         shadowColor: '#000',
         shadowOpacity: 0.04,

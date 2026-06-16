@@ -8,6 +8,7 @@ import type { FeedRun } from '@/types/app';
 import { formatRunDateTime, getFirstName } from '@/utils/formatters';
 import { resolveRequestCTA } from '@/features/requests/api';
 import { getMockUserById } from '@/constants/mockUsers';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -28,7 +29,7 @@ function InfoBlock({
   return (
     <View
       className="rounded-2xl border px-4 py-3.5 mb-3 mx-4"
-      style={{ backgroundColor: theme.card, borderColor: '#E8E4DF' }}
+      style={cardFrame}
     >
       <Text
         className="text-[11px] font-semibold uppercase tracking-wider mb-2"

@@ -1,6 +1,7 @@
 import { View, Pressable, Text, useWindowDimensions } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 
 interface OnboardingPhotoGridProps {
@@ -30,7 +31,7 @@ export function OnboardingPhotoGrid({
       <Pressable
         key={index}
         onPress={() => onSlotPress(index)}
-        style={{ width: slotWidth, height: slotHeight, backgroundColor: theme.card }}
+        style={{ width: slotWidth, height: slotHeight, ...cardFrame }}
         className="rounded-2xl border border-dashed overflow-hidden items-center justify-center"
       >
         {hasPhoto ? (

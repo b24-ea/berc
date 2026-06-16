@@ -18,6 +18,7 @@ module.exports = {
         accent: '#E8673A',
         'accent-light': 'rgba(253, 237, 229, 0.72)',
         border: '#EEEDE9',
+        'card-border': 'rgba(165, 61, 19, 0.38)',
         success: '#4CAF7D',
         error: '#E05252',
       },

@@ -61,7 +61,7 @@ export default function RequestsScreen() {
             data={requests as IncomingRequest[]}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View className="bg-card rounded-3xl p-4 mb-4 border border-border">
+              <View className="bg-card rounded-3xl p-4 mb-4 border border-card-border">
                 <View className="flex-row gap-3 mb-3">
                   <Image
                     source={{ uri: item.requester.photos?.[0] }}

@@ -21,7 +21,7 @@ interface ButtonProps extends PressableProps {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: 'bg-accent',
-  secondary: 'bg-card border border-border',
+  secondary: 'bg-card border border-card-border',
   ghost: 'bg-transparent',
   muted: 'bg-card',
 };

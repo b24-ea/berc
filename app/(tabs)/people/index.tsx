@@ -7,6 +7,7 @@ import { Image } from 'expo-image';
 import { AppTopBar } from '@/components/ui/AppTopBar';
 import { Avatar } from '@/components/ui/Avatar';
 import { MOCK_FEED_RUNS } from '@/constants/mockFeed';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { usePeopleDiscoveryStore } from '@/store/peopleDiscoveryStore';
@@ -101,7 +102,7 @@ export default function PeopleScreen() {
         <Pressable
           onPress={openInvitations}
           className="rounded-2xl p-3 flex-row items-center justify-between"
-          style={{ backgroundColor: theme.card }}
+          style={cardFrame}
         >
           <View>
             <Text className="text-xs uppercase tracking-wide" style={{ color: theme.brand }}>
@@ -152,7 +153,7 @@ export default function PeopleScreen() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 28 }}
         ListEmptyComponent={(
-          <View className="rounded-3xl p-5 mt-2" style={{ backgroundColor: theme.card }}>
+          <View className="rounded-3xl p-5 mt-2" style={cardFrame}>
             <Text className="text-lg font-semibold text-text-primary">All clear</Text>
             <Text className="text-sm text-text-secondary mt-1">
               {activeFilter === 'discover'
@@ -169,7 +170,7 @@ export default function PeopleScreen() {
             <View
               className="rounded-3xl mb-4 overflow-hidden"
               style={{
-                backgroundColor: theme.card,
+                ...cardFrame,
                 shadowColor: '#000',
                 shadowOpacity: 0.04,
                 shadowRadius: 14,

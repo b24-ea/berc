@@ -19,6 +19,7 @@ import {
 import { loginSchema, type LoginFormValues } from '@/utils/validators';
 import { isSupabaseConfigured } from '@/services/supabase/client';
 import { DevBypassButton } from '@/components/dev/DevBypassButton';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 
 export default function LoginScreen() {
@@ -46,7 +47,7 @@ export default function LoginScreen() {
       />
 
       {!isSupabaseConfigured ? (
-        <View className="rounded-2xl p-4 mb-6 border border-border" style={{ backgroundColor: theme.card }}>
+        <View className="rounded-2xl p-4 mb-6" style={cardFrame}>
           <Text className="text-sm text-text-primary leading-5">
             Supabase bağlı değil. `.env` dosyasına{' '}
             <Text className="font-semibold">EXPO_PUBLIC_SUPABASE_URL</Text> ve{' '}

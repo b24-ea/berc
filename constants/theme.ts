@@ -6,4 +6,6 @@ export const theme = {
   surface: '#FFFFFF',
   card: 'rgba(253, 237, 229, 0.72)',
   cardMuted: 'rgba(245, 230, 220, 0.55)',
+  /** Brand-tinted border for card surfaces */
+  cardBorder: 'rgba(165, 61, 19, 0.38)',
 } as const;

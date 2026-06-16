@@ -1,4 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 
 interface HingeProfilePromoCardProps {
@@ -20,7 +21,7 @@ export function HingeProfilePromoCard({
     <Pressable
       onPress={onPress}
       className="mx-4 mb-3 rounded-2xl p-4 flex-row items-center justify-between"
-      style={{ backgroundColor: theme.card }}
+      style={cardFrame}
     >
       <View className="flex-1 pr-3">
         <Text className="text-[22px] font-bold text-text-primary leading-7">{title}</Text>

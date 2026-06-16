@@ -22,6 +22,7 @@ import {
 } from '@/utils/formatters';
 import { resolveRequestCTA } from '@/features/requests/api';
 import { getMockUserById, getMockRunsForUser } from '@/constants/mockUsers';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -33,13 +34,13 @@ interface FeeldFeedCardProps {
 }
 
 const IMAGE_RADIUS = 20;
-const STAT_BG = theme.card;
+const STAT_STYLE = cardFrame;
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
     <View
       className="rounded-2xl px-4 py-3.5"
-      style={{ backgroundColor: STAT_BG, flex: 1 }}
+      style={{ ...STAT_STYLE, flex: 1 }}
     >
       <Text
         className="text-[10px] font-bold uppercase tracking-wider"
@@ -70,7 +71,7 @@ function UpcomingRunCard({
       className="flex-row items-center rounded-2xl p-3 mb-3 border"
       style={{
         backgroundColor: featured ? theme.card : theme.cardMuted,
-        borderColor: featured ? `${theme.brand}22` : colors.border,
+        borderColor: theme.cardBorder,
       }}
     >
       <View
@@ -294,8 +295,8 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
               {vibeTags.slice(0, 5).map((tag) => (
                 <View
                   key={tag}
-                  className="rounded-full px-3.5 py-2"
-                  style={{ backgroundColor: theme.card }}
+                  className="rounded-full px-3.5 py-2 border"
+                  style={{ backgroundColor: theme.card, borderColor: theme.cardBorder }}
                 >
                   <Text className="text-sm font-semibold" style={{ color: theme.brandDark }}>
                     {tag}
@@ -315,7 +316,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
           </Text>
 
           {userRuns.length === 0 ? (
-            <View className="rounded-2xl p-4 border border-border" style={{ backgroundColor: theme.card }}>
+            <View className="rounded-2xl p-4" style={cardFrame}>
               <Text className="text-sm text-text-secondary">No upcoming runs posted yet.</Text>
             </View>
           ) : (

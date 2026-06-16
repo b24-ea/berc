@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { Avatar } from '@/components/ui/Avatar';
+import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import type { InvitationListItem } from '@/constants/mockInvitations';
 
@@ -20,7 +21,7 @@ export function InvitationPersonRow({ item, onPress, rightContent }: InvitationP
       onPress={onPress}
       className="rounded-3xl px-4 py-4 mb-3 flex-row items-center"
       style={{
-        backgroundColor: theme.card,
+        ...cardFrame,
         shadowColor: '#000',
         shadowOpacity: 0.04,
         shadowRadius: 10,

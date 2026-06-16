@@ -7,6 +7,8 @@ export const colors = {
   accent: '#E8673A',
   accentLight: 'rgba(253, 237, 229, 0.72)',
   border: '#EEEDE9',
+  cardBorder: 'rgba(165, 61, 19, 0.38)',
+  cardBorder: 'rgba(165, 61, 19, 0.38)',
   success: '#4CAF7D',
   error: '#E05252',
   white: '#FFFFFF',
