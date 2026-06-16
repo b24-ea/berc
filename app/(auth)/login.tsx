@@ -18,7 +18,6 @@ import {
 } from '@/features/auth/hooks';
 import { loginSchema, type LoginFormValues } from '@/utils/validators';
 import { isSupabaseConfigured } from '@/services/supabase/client';
-import { DevBypassButton } from '@/components/dev/DevBypassButton';
 import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 
@@ -126,8 +125,6 @@ export default function LoginScreen() {
         linkLabel="Create account"
         onPress={() => router.push('/(auth)/register')}
       />
-
-      <DevBypassButton />
     </AuthScreen>
   );
 }

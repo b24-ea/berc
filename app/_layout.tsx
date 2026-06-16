@@ -9,6 +9,7 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { requireOptionalNativeModule } from 'expo-modules-core';
 import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AppProviders } from '@/providers/AppProviders';
@@ -60,6 +61,12 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) SplashScreen.hideAsync();
   }, [loaded]);
+
+  useEffect(() => {
+    if (!__DEV__) return;
+    const DevMenuPreferences = requireOptionalNativeModule('DevMenuPreferences');
+    DevMenuPreferences?.setPreferencesAsync({ showFloatingActionButton: false });
+  }, []);
 
   if (!loaded) return null;
 

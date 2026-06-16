@@ -10,13 +10,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#FFFFFF',
-        page: '#FFFFFF',
-        card: 'rgba(253, 237, 229, 0.72)',
+        background: '#FAFAF8',
+        page: '#FAEDE6',
+        card: '#FFFFFF',
         'text-primary': '#1A1A1A',
         'text-secondary': '#6B6B6B',
-        accent: '#E8673A',
-        'accent-light': 'rgba(253, 237, 229, 0.72)',
+        accent: '#A53D13',
+        'accent-light': '#FFF0EB',
         border: '#EEEDE9',
         'card-border': 'rgba(165, 61, 19, 0.38)',
         success: '#4CAF7D',

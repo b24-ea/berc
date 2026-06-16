@@ -2,6 +2,7 @@ import { View, Text, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import Svg, { Circle } from 'react-native-svg';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 interface HingeProfileCompletionProps {
   photoUri: string;
@@ -11,7 +12,7 @@ interface HingeProfileCompletionProps {
 }
 
 const SIZE = 96;
-const STROKE = 3;
+const STROKE = 4;
 
 export function HingeProfileCompletion({
   photoUri,
@@ -34,7 +35,7 @@ export function HingeProfileCompletion({
               cx={SIZE / 2}
               cy={SIZE / 2}
               r={radius}
-              stroke="#E8DDD4"
+              stroke={colors.border}
               strokeWidth={STROKE}
               fill="none"
             />
@@ -42,7 +43,7 @@ export function HingeProfileCompletion({
               cx={SIZE / 2}
               cy={SIZE / 2}
               r={radius}
-              stroke={theme.brandDark}
+              stroke={theme.brand}
               strokeWidth={STROKE}
               fill="none"
               strokeDasharray={`${circumference} ${circumference}`}
@@ -72,19 +73,13 @@ export function HingeProfileCompletion({
         </View>
       </Pressable>
 
-      <Text
-        className="text-[11px] font-bold mt-4 tracking-[1.5px]"
-        style={{ color: theme.brandDark }}
-      >
-        {clamped}% COMPLETE
+      <Text className="text-[13px] mt-4" style={{ color: colors.textSecondary }}>
+        {clamped}% complete
       </Text>
 
       <Pressable onPress={onCompletePress} className="mt-2">
-        <Text
-          className="text-[15px] font-medium underline"
-          style={{ color: theme.brandDark }}
-        >
-          Complete your profile
+        <Text className="text-[13px]" style={{ color: theme.brand }}>
+          Complete your profile →
         </Text>
       </Pressable>
     </View>

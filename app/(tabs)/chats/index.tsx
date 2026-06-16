@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ChatListItemRow, ChatRequestRow } from '@/components/chat/ChatListItem';
 import { ChatsTitlePill, ChatsEndHint } from '@/components/chat/ChatsHeader';
@@ -21,6 +22,7 @@ import { MOCK_CHAT_LIST } from '@/constants/mockChats';
 import { notifications } from '@/hooks/useNotifications';
 import { getFirstName, formatRunDateTime } from '@/utils/formatters';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 export default function ChatsScreen() {
   const router = useRouter();
@@ -76,10 +78,18 @@ export default function ChatsScreen() {
 
     if (displayChats.length === 0) {
       return (
-        <EmptyState
-          title="No chats yet"
-          subtitle="Accept a run request to start talking."
-        />
+        <View className="flex-1 items-center justify-center px-8">
+          <Ionicons name="chatbubble-outline" size={32} color={theme.brand} />
+          <Text className="text-base font-semibold text-text-primary text-center mt-4">
+            No more chats.
+          </Text>
+          <Text
+            className="text-sm text-center mt-2 leading-5"
+            style={{ color: colors.textSecondary }}
+          >
+            Accept a run request to start talking.
+          </Text>
+        </View>
       );
     }
 
@@ -87,7 +97,8 @@ export default function ChatsScreen() {
       <FlashList
         data={displayChats}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 16 }}
+        style={{ flex: 1, backgroundColor: colors.page }}
+        contentContainerStyle={{ paddingBottom: 16 }}
         ListFooterComponent={<ChatsEndHint />}
         renderItem={({ item }) => {
           const mockItem = item as ChatListItem & {
@@ -131,7 +142,8 @@ export default function ChatsScreen() {
       <FlashList
         data={requests as IncomingRequest[]}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 16 }}
+        style={{ flex: 1, backgroundColor: colors.page }}
+        contentContainerStyle={{ paddingBottom: 16 }}
         renderItem={({ item }) => (
           <ChatRequestRow
             name={item.requester.name}

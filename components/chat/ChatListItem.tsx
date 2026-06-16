@@ -3,7 +3,6 @@ import { Image } from 'expo-image';
 import { Avatar } from '@/components/ui/Avatar';
 import type { ChatListItem as ChatListItemType } from '@/types/app';
 import { formatDistanceToNow, isValid, parseISO } from 'date-fns';
-import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -15,7 +14,13 @@ interface ChatListItemProps {
   unread?: boolean;
 }
 
-const CARD_STYLE = cardFrame;
+const ROW_SHADOW = {
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.05,
+  shadowRadius: 3,
+  elevation: 2,
+};
 
 function getTimeLabel(lastMessageAt?: string, explicit?: string) {
   if (explicit) return explicit;
@@ -38,8 +43,8 @@ export function ChatListItemRow({
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center gap-3 p-3.5 mb-3 rounded-2xl"
-      style={CARD_STYLE}
+      className="flex-row items-center gap-3 bg-white rounded-2xl mx-5 mb-2 px-4 py-3"
+      style={ROW_SHADOW}
     >
       <Avatar
         uri={item.otherUser.photos?.[0]}
@@ -62,7 +67,7 @@ export function ChatListItemRow({
           {unread ? (
             <View
               className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: '#3B82F6' }}
+              style={{ backgroundColor: theme.brand }}
             />
           ) : null}
         </View>
@@ -94,8 +99,8 @@ export function ChatRequestRow({
 }: ChatRequestRowProps) {
   return (
     <View
-      className="rounded-2xl p-4 mb-3"
-      style={CARD_STYLE}
+      className="bg-white rounded-2xl mx-5 mb-2 p-4"
+      style={ROW_SHADOW}
     >
       <View className="flex-row gap-3 mb-3">
         {photo ? (
@@ -120,21 +125,20 @@ export function ChatRequestRow({
           onPress={onAccept}
           disabled={acceptLoading}
           className="flex-1 rounded-full py-3 items-center"
-          style={{ backgroundColor: theme.brandDark, opacity: acceptLoading ? 0.7 : 1 }}
+          style={{ backgroundColor: theme.brand, opacity: acceptLoading ? 0.7 : 1 }}
         >
           <Text className="text-sm font-bold text-white">Accept</Text>
         </Pressable>
         <Pressable
           onPress={onDecline}
           disabled={declineLoading}
-          className="flex-1 rounded-full py-3 items-center border"
+          className="flex-1 rounded-full py-3 items-center border bg-white"
           style={{
-            borderColor: '#E7E2DD',
-            backgroundColor: colors.white,
+            borderColor: colors.border,
             opacity: declineLoading ? 0.7 : 1,
           }}
         >
-          <Text className="text-sm font-bold" style={{ color: theme.brandDark }}>
+          <Text className="text-sm font-bold" style={{ color: theme.brand }}>
             Decline
           </Text>
         </Pressable>

@@ -40,8 +40,8 @@ export function Input({
         className={cn(
           'text-base text-text-primary',
           isAuth
-            ? 'bg-white rounded-full px-5 py-3.5 border border-border/60'
-            : 'bg-card rounded-2xl px-4 py-3.5 border border-card-border',
+            ? 'bg-white rounded-full px-5 py-3.5 border border-border'
+            : 'bg-white rounded-xl px-4 py-3 border border-border',
           error && 'border-error',
           className,
         )}

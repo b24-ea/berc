@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 export function ChatsTitlePill() {
   return (
@@ -9,10 +10,10 @@ export function ChatsTitlePill() {
         className="rounded-full px-10 py-2.5 border"
         style={{
           borderColor: theme.brand,
-          backgroundColor: theme.peach,
+          backgroundColor: colors.white,
         }}
       >
-        <Text className="text-[22px] font-bold" style={{ color: theme.brandDark }}>
+        <Text className="text-[22px] font-bold" style={{ color: theme.brand }}>
           Chats
         </Text>
       </View>
@@ -23,17 +24,12 @@ export function ChatsTitlePill() {
 export function ChatsEndHint() {
   return (
     <View className="items-center px-8 pt-8 pb-6">
-      <Ionicons
-        name="chatbubble-outline"
-        size={32}
-        color={theme.brandDark}
-        style={{ opacity: 0.45 }}
-      />
-      <Text
-        className="text-center text-[15px] leading-6 mt-4"
-        style={{ color: theme.brandDark }}
-      >
-        No more chats. Accept a run request to start talking.
+      <Ionicons name="chatbubble-outline" size={32} color={theme.brand} />
+      <Text className="text-base font-semibold text-text-primary text-center mt-4">
+        No more chats.
+      </Text>
+      <Text className="text-sm text-center mt-2 leading-5" style={{ color: colors.textSecondary }}>
+        Accept a run request to start talking.
       </Text>
     </View>
   );

@@ -24,7 +24,7 @@ function FilterChip({
       className="rounded-full px-4 py-2.5 border"
       style={{
         borderColor: selected ? theme.brand : '#E7E2DD',
-        backgroundColor: selected ? theme.peach : '#fff',
+        backgroundColor: selected ? colors.accentLight : colors.white,
       }}
     >
       <Text style={{ color: selected ? theme.brand : '#6B6B6B', fontWeight: '600' }}>
@@ -116,7 +116,7 @@ export default function FeedFiltersScreen() {
           </View>
         </ScrollView>
 
-        <View className="px-5 pb-8 pt-3 border-t border-border bg-background">
+        <View className="px-5 pb-8 pt-3 border-t border-border bg-page">
           <Pressable
             onPress={() => router.back()}
             className="rounded-full py-4 items-center"

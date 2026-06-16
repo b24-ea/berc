@@ -15,7 +15,7 @@ export function Chip({ label, selected = false, onPress }: ChipProps) {
         'px-4 py-2 rounded-full mr-2 border',
         selected
           ? 'bg-accent-light border-accent'
-          : 'bg-card border-card-border',
+          : 'bg-white border-border',
       )}
     >
       <Text

@@ -2,10 +2,15 @@ import { View, Text, Pressable } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { DevBypassButton } from '@/components/dev/DevBypassButton';
 import { theme } from '@/constants/theme';
 
-const RING_SIZES = [140, 220, 300, 380, 460, 540];
+const RING_CONFIG = [
+  { size: 120, opacity: 0.08 },
+  { size: 200, opacity: 0.06 },
+  { size: 300, opacity: 0.05 },
+  { size: 400, opacity: 0.04 },
+  { size: 500, opacity: 0.03 },
+] as const;
 
 function WelcomeRings() {
   return (
@@ -14,7 +19,7 @@ function WelcomeRings() {
       className="absolute items-center justify-center"
       style={{ width: '100%', height: '100%' }}
     >
-      {RING_SIZES.map((size) => (
+      {RING_CONFIG.map(({ size, opacity }) => (
         <View
           key={size}
           style={{
@@ -23,7 +28,7 @@ function WelcomeRings() {
             height: size,
             borderRadius: size / 2,
             borderWidth: 1,
-            borderColor: `${theme.brand}14`,
+            borderColor: `rgba(165, 61, 19, ${opacity})`,
           }}
         />
       ))}
@@ -104,8 +109,6 @@ export function WelcomeHero({ showSignIn = true, onGetStarted }: WelcomeHeroProp
             </Pressable>
           </Animated.View>
         ) : null}
-
-        <DevBypassButton variant="light" />
       </View>
     </View>
   );

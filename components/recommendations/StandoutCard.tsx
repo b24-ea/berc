@@ -40,8 +40,6 @@ export const StandoutCard = React.memo(function StandoutCard({
     return mockUser?.photos?.[0] ?? run.creator.photos?.[0] ?? run.image;
   }, [run]);
 
-  const showTodaysPick = isActive && reason.toUpperCase().includes("TODAY");
-
   return (
     <Pressable
       onPress={onPressProfile}
@@ -75,14 +73,9 @@ export const StandoutCard = React.memo(function StandoutCard({
         style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
       />
 
-      {showTodaysPick ? (
-        <View
-          className="absolute top-5 left-5 rounded-full px-3.5 py-1.5"
-          style={{ backgroundColor: theme.brandDark }}
-        >
-          <Text className="text-[11px] font-bold text-white tracking-wide uppercase">
-            Today's pick
-          </Text>
+      {isActive ? (
+        <View className="absolute top-5 left-5 bg-[#A53D13] px-3 py-1 rounded-full">
+          <Text className="text-xs font-medium text-white">Standout</Text>
         </View>
       ) : reason ? (
         <View

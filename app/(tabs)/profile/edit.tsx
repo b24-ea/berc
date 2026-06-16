@@ -107,7 +107,7 @@ export default function EditProfileScreen() {
 
   return (
     <View className="flex-1 bg-page">
-      <View className="flex-row items-center justify-between px-5 py-4 border-b border-border">
+      <View className="flex-row items-center justify-between px-5 py-4" style={{ backgroundColor: colors.background }}>
         <Pressable onPress={() => router.back()} hitSlop={10}>
           <Ionicons name="chevron-back" size={24} color="#1A1A1A" />
         </Pressable>
@@ -163,11 +163,11 @@ export default function EditProfileScreen() {
                   onPress={() => setRadius(r)}
                   className="px-4 py-2 rounded-full border"
                   style={{
-                    borderColor: radius === r ? theme.brand : '#EEEDE9',
-                    backgroundColor: radius === r ? theme.peach : colors.white,
+                    borderColor: radius === r ? theme.brand : colors.border,
+                    backgroundColor: radius === r ? colors.accentLight : colors.white,
                   }}
                 >
-                  <Text style={{ color: radius === r ? theme.brand : '#6B6B6B' }}>{r} km</Text>
+                  <Text style={{ color: radius === r ? theme.brand : colors.textSecondary }}>{r} km</Text>
                 </Pressable>
               ))}
             </View>

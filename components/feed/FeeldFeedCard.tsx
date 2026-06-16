@@ -10,7 +10,6 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { FeedRun } from '@/types/app';
@@ -33,8 +32,15 @@ interface FeeldFeedCardProps {
   onAdvance: (run: FeedRun) => void;
 }
 
-const IMAGE_RADIUS = 20;
 const STAT_STYLE = cardFrame;
+
+const CARD_SHADOW = {
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.08,
+  shadowRadius: 8,
+  elevation: 3,
+};
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
@@ -68,10 +74,11 @@ function UpcomingRunCard({
 
   return (
     <View
-      className="flex-row items-center rounded-2xl p-3 mb-3 border"
+      className="flex-row items-center rounded-2xl p-3 mb-3 bg-white"
       style={{
-        backgroundColor: featured ? theme.card : theme.cardMuted,
-        borderColor: theme.cardBorder,
+        ...CARD_SHADOW,
+        borderWidth: featured ? 1 : 0,
+        borderColor: featured ? theme.brand : 'transparent',
       }}
     >
       <View
@@ -106,13 +113,13 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
   onOpenChat,
   onAdvance,
 }: FeeldFeedCardProps) {
-  const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+  const { width: screenWidth } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const creatorName = getFirstName(run.creator.name);
   const ctaState = resolveRequestCTA(run.requestStatus, undefined);
 
-  const photoHeight = Math.min(Math.round(screenHeight * 0.44), 380);
-  const photoWidth = screenWidth - 24;
+  const photoWidth = screenWidth - 40;
+  const photoHeight = photoWidth * (4 / 3);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
 
   const mockUser = useMemo(() => getMockUserById(run.creator_id), [run.creator_id]);
@@ -180,10 +187,10 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
         nestedScrollEnabled
         contentContainerStyle={{ paddingBottom: insets.bottom + 96 }}
       >
-        <View className="px-3 pt-2">
+        <View className="pt-2">
           <View
-            className="overflow-hidden"
-            style={{ height: photoHeight, borderRadius: IMAGE_RADIUS }}
+            className="mx-5 rounded-2xl overflow-hidden bg-white self-center"
+            style={{ width: photoWidth, height: photoHeight, ...CARD_SHADOW }}
           >
             <FlatList
               data={photos}
@@ -208,33 +215,6 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
                 index,
               })}
             />
-
-            <LinearGradient
-              pointerEvents="none"
-              colors={['transparent', 'rgba(0,0,0,0.55)', 'rgba(0,0,0,0.72)']}
-              locations={[0.45, 0.78, 1]}
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: photoHeight * 0.42,
-              }}
-            />
-
-            <View
-              pointerEvents="none"
-              className="absolute left-0 right-0 bottom-0 px-4 pb-4"
-            >
-              <Text className="text-[26px] font-bold text-white leading-8">
-                {run.creator.name}
-                {run.creator.age ? `, ${run.creator.age}` : ''}
-              </Text>
-              <View className="flex-row items-center gap-1 mt-1">
-                <Ionicons name="location-sharp" size={13} color="rgba(255,255,255,0.9)" />
-                <Text className="text-sm font-medium text-white/90">{locationLine}</Text>
-              </View>
-            </View>
 
             {photos.length > 1 ? (
               <View
@@ -266,6 +246,17 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
               </View>
             ) : null}
           </View>
+
+          <View className="px-5 mt-4">
+            <Text className="text-[26px] font-bold text-text-primary leading-8">
+              {run.creator.name}
+              {run.creator.age ? `, ${run.creator.age}` : ''}
+            </Text>
+            <View className="flex-row items-center gap-1 mt-1">
+              <Ionicons name="location-sharp" size={13} color={colors.textSecondary} />
+              <Text className="text-sm font-medium text-text-secondary">{locationLine}</Text>
+            </View>
+          </View>
         </View>
 
         {mockUser && (weeklyKm != null || averagePace) ? (
@@ -295,10 +286,10 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
               {vibeTags.slice(0, 5).map((tag) => (
                 <View
                   key={tag}
-                  className="rounded-full px-3.5 py-2 border"
-                  style={{ backgroundColor: theme.card, borderColor: theme.cardBorder }}
+                  className="rounded-full px-3.5 py-2 border bg-white"
+                  style={{ borderColor: colors.border }}
                 >
-                  <Text className="text-sm font-semibold" style={{ color: theme.brandDark }}>
+                  <Text className="text-sm font-semibold text-text-secondary">
                     {tag}
                   </Text>
                 </View>

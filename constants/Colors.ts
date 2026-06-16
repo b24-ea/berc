@@ -1,13 +1,14 @@
 export const colors = {
-  background: '#FFFFFF',
-  page: '#FFFFFF',
-  card: 'rgba(253, 237, 229, 0.72)',
+  /** Top navigation bar and bottom tab bar */
+  background: '#FAFAF8',
+  /** Warm peach screen background */
+  page: '#FAEDE6',
+  card: '#FFFFFF',
   textPrimary: '#1A1A1A',
   textSecondary: '#6B6B6B',
-  accent: '#E8673A',
-  accentLight: 'rgba(253, 237, 229, 0.72)',
+  accent: '#A53D13',
+  accentLight: '#FFF0EB',
   border: '#EEEDE9',
-  cardBorder: 'rgba(165, 61, 19, 0.38)',
   cardBorder: 'rgba(165, 61, 19, 0.38)',
   success: '#4CAF7D',
   error: '#E05252',

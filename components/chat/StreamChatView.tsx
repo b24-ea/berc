@@ -145,7 +145,7 @@ export function StreamChatView({
           placeholder="Type a message..."
           placeholderTextColor={colors.muted}
           className="flex-1 rounded-full px-4 py-3 text-[15px] text-text-primary"
-          style={{ backgroundColor: theme.peach }}
+          style={{ backgroundColor: colors.white }}
           onSubmitEditing={sendMessage}
           returnKeyType="send"
         />
@@ -154,9 +154,7 @@ export function StreamChatView({
           onPress={sendMessage}
           disabled={!input.trim()}
           className="flex-row items-center gap-1.5 rounded-full px-4 py-3"
-          style={{
-            backgroundColor: input.trim() ? theme.brandDark : theme.cardMuted,
-          }}
+          style={{ backgroundColor: input.trim() ? theme.brand : colors.border }}
         >
           <Text className="text-sm font-bold text-white">Send</Text>
           <Ionicons name="paper-plane" size={16} color="#fff" />
