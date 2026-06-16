@@ -1,5 +1,6 @@
 import { View, Pressable, Text } from 'react-native';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 import { INTEREST_TAGS } from '@/constants/interests';
 
 interface InterestTagSelectorProps {
@@ -31,7 +32,7 @@ export function InterestTagSelector({ selected, onChange }: InterestTagSelectorP
               className="rounded-full px-4 py-2.5 border"
               style={{
                 borderColor: isSelected ? theme.brand : '#E7E2DD',
-                backgroundColor: isSelected ? theme.brand : '#fff',
+                backgroundColor: isSelected ? theme.brand : colors.card,
               }}
             >
               <Text

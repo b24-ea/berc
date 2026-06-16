@@ -74,7 +74,7 @@ function UpcomingRunCard({
 
   return (
     <View
-      className="flex-row items-center rounded-2xl p-3 mb-3 bg-white"
+      className="flex-row items-center rounded-2xl p-3 mb-3 bg-card"
       style={{
         ...CARD_SHADOW,
         borderWidth: featured ? 1 : 0,
@@ -189,7 +189,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
       >
         <View className="pt-2">
           <View
-            className="mx-5 rounded-2xl overflow-hidden bg-white self-center"
+            className="mx-5 rounded-2xl overflow-hidden bg-card self-center"
             style={{ width: photoWidth, height: photoHeight, ...CARD_SHADOW }}
           >
             <FlatList
@@ -286,7 +286,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
               {vibeTags.slice(0, 5).map((tag) => (
                 <View
                   key={tag}
-                  className="rounded-full px-3.5 py-2 border bg-white"
+                  className="rounded-full px-3.5 py-2 border bg-card"
                   style={{ borderColor: colors.border }}
                 >
                   <Text className="text-sm font-semibold text-text-secondary">
@@ -330,7 +330,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
       >
         <Pressable
           onPress={handlePass}
-          className="w-[52px] h-[52px] rounded-full items-center justify-center bg-white"
+          className="w-[52px] h-[52px] rounded-full items-center justify-center bg-card"
           style={{
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 2 },

@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 import { GENDER_OPTIONS, type GenderOption } from '@/constants/interests';
 
 interface GenderSelectorProps {
@@ -21,7 +22,7 @@ export function GenderSelector({ value, onChange }: GenderSelectorProps) {
               className="rounded-full px-4 py-2.5 border"
               style={{
                 borderColor: selected ? theme.brand : '#E7E2DD',
-                backgroundColor: selected ? theme.brand : '#fff',
+                backgroundColor: selected ? theme.brand : colors.card,
               }}
             >
               <Text

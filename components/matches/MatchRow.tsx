@@ -15,7 +15,7 @@ export function MatchRow({ item, onPress, onMessage }: MatchRowProps) {
   return (
     <Pressable
       onPress={onPress}
-      className="bg-white rounded-2xl mx-5 mb-2 px-4 py-3 flex-row items-center"
+      className="bg-card rounded-2xl mx-5 mb-2 px-4 py-3 flex-row items-center"
       style={cardFrame}
     >
       <Avatar uri={item.photo ?? undefined} name={item.name} size="lg" />
@@ -54,7 +54,7 @@ export function MatchesTitlePill() {
         className="rounded-full px-10 py-2.5 border"
         style={{
           borderColor: theme.brand,
-          backgroundColor: colors.white,
+          backgroundColor: colors.card,
         }}
       >
         <Text className="text-[22px] font-bold" style={{ color: theme.brand }}>

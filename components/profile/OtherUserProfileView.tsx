@@ -177,7 +177,7 @@ export function OtherUserProfileView({
           ) : null}
           <Pressable
             onPress={handleInvite}
-            className="rounded-2xl py-4 items-center border border-border bg-white"
+            className="rounded-2xl py-4 items-center border border-card-border bg-card"
           >
             <Text className="text-base font-semibold" style={{ color: theme.brand }}>
               {isInvited ? 'Invited' : `Invite ${firstName}`}

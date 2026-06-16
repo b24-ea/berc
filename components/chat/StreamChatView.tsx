@@ -134,7 +134,7 @@ export function StreamChatView({
       >
         <Pressable
           className="w-10 h-10 rounded-full items-center justify-center border"
-          style={{ borderColor: colors.border, backgroundColor: colors.white }}
+          style={{ borderColor: colors.border, backgroundColor: colors.card }}
         >
           <Ionicons name="add" size={22} color={theme.brandDark} />
         </Pressable>
@@ -145,7 +145,7 @@ export function StreamChatView({
           placeholder="Type a message..."
           placeholderTextColor={colors.muted}
           className="flex-1 rounded-full px-4 py-3 text-[15px] text-text-primary"
-          style={{ backgroundColor: colors.white }}
+          style={{ backgroundColor: colors.card }}
           onSubmitEditing={sendMessage}
           returnKeyType="send"
         />

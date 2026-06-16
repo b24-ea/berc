@@ -7,6 +7,7 @@ import { TextArea } from '@/components/ui/TextArea';
 import { ONBOARDING_STEPS } from '@/constants/onboarding';
 import { DISCOVERY_RADIUS_OPTIONS } from '@/constants/vibes';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 import { useUserStore } from '@/store/userStore';
 import { useAuthStore } from '@/store/authStore';
 import { useCompleteOnboarding } from '@/features/onboarding/hooks';
@@ -126,7 +127,7 @@ export default function OnboardingRunningScreen() {
                   className="rounded-full px-4 py-2.5 border"
                   style={{
                     borderColor: selected ? theme.brand : '#E7E2DD',
-                    backgroundColor: selected ? theme.brand : '#fff',
+                    backgroundColor: selected ? theme.brand : colors.card,
                   }}
                 >
                   <Text

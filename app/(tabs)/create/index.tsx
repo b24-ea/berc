@@ -290,7 +290,7 @@ export default function CreateRunScreen() {
                   className="px-4 py-2 rounded-full border"
                   style={{
                     borderColor: selected ? theme.brand : colors.border,
-                    backgroundColor: selected ? theme.peach : '#fff',
+                    backgroundColor: selected ? theme.peach : colors.card,
                   }}
                 >
                   <Text

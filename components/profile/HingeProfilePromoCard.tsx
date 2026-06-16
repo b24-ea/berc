@@ -20,7 +20,7 @@ export function HingeProfilePromoCard({
   return (
     <Pressable
       onPress={onPress}
-      className="mx-4 mb-3 rounded-2xl p-4 flex-row items-center justify-between bg-white"
+      className="mx-4 mb-3 rounded-2xl p-4 flex-row items-center justify-between bg-card"
       style={cardFrame}
     >
       <View className="flex-1 pr-3">

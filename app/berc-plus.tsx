@@ -28,9 +28,9 @@ function PlanCard({
       onPress={onPress}
       className="flex-1 rounded-2xl p-4 border-2"
       style={{
-        backgroundColor: colors.white,
-        borderColor: selected ? theme.brand : colors.border,
         ...cardFrame,
+        borderWidth: 2,
+        borderColor: selected ? theme.brand : colors.cardBorder,
       }}
     >
       {badge ? (
@@ -106,7 +106,7 @@ export default function BercPlusScreen() {
             {BERC_PLUS_PERKS.map((perk) => (
               <View
                 key={perk.title}
-                className="flex-row items-start gap-3 rounded-2xl p-4 bg-white"
+                className="flex-row items-start gap-3 rounded-2xl p-4 bg-card"
                 style={cardFrame}
               >
                 <View

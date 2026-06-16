@@ -164,7 +164,7 @@ export default function EditProfileScreen() {
                   className="px-4 py-2 rounded-full border"
                   style={{
                     borderColor: radius === r ? theme.brand : colors.border,
-                    backgroundColor: radius === r ? colors.accentLight : colors.white,
+                    backgroundColor: radius === r ? colors.accentLight : colors.card,
                   }}
                 >
                   <Text style={{ color: radius === r ? theme.brand : colors.textSecondary }}>{r} km</Text>

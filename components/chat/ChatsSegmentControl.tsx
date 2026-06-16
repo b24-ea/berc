@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 
 export type ChatsTab = 'chats' | 'requests';
 
@@ -19,7 +20,7 @@ export function ChatsSegmentControl({ active, onChange }: ChatsSegmentControlPro
             onPress={() => onChange(tab)}
             className="flex-1 rounded-full py-2.5 items-center"
             style={{
-              backgroundColor: selected ? theme.brandDark : '#fff',
+              backgroundColor: selected ? theme.brandDark : colors.card,
             }}
           >
             <Text

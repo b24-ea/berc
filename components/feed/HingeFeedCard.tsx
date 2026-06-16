@@ -182,7 +182,7 @@ export const HingeFeedCard = React.memo(function HingeFeedCard({
       >
         <Pressable
           onPress={handlePass}
-          className="w-14 h-14 rounded-full items-center justify-center border-2 bg-white"
+          className="w-14 h-14 rounded-full items-center justify-center border-2 bg-card"
           style={{ borderColor: '#D9D4CE' }}
         >
           <Ionicons name="close" size={28} color={colors.textSecondary} />

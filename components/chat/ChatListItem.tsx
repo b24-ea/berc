@@ -43,7 +43,7 @@ export function ChatListItemRow({
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center gap-3 bg-white rounded-2xl mx-5 mb-2 px-4 py-3"
+      className="flex-row items-center gap-3 bg-card rounded-2xl mx-5 mb-2 px-4 py-3"
       style={ROW_SHADOW}
     >
       <Avatar
@@ -99,7 +99,7 @@ export function ChatRequestRow({
 }: ChatRequestRowProps) {
   return (
     <View
-      className="bg-white rounded-2xl mx-5 mb-2 p-4"
+      className="bg-card rounded-2xl mx-5 mb-2 p-4"
       style={ROW_SHADOW}
     >
       <View className="flex-row gap-3 mb-3">
@@ -132,7 +132,7 @@ export function ChatRequestRow({
         <Pressable
           onPress={onDecline}
           disabled={declineLoading}
-          className="flex-1 rounded-full py-3 items-center border bg-white"
+          className="flex-1 rounded-full py-3 items-center border bg-card"
           style={{
             borderColor: colors.border,
             opacity: declineLoading ? 0.7 : 1,

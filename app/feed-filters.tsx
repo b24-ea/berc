@@ -24,7 +24,7 @@ function FilterChip({
       className="rounded-full px-4 py-2.5 border"
       style={{
         borderColor: selected ? theme.brand : '#E7E2DD',
-        backgroundColor: selected ? colors.accentLight : colors.white,
+        backgroundColor: selected ? colors.accentLight : colors.card,
       }}
     >
       <Text style={{ color: selected ? theme.brand : '#6B6B6B', fontWeight: '600' }}>

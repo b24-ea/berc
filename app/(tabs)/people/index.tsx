@@ -9,6 +9,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { MOCK_FEED_RUNS } from '@/constants/mockFeed';
 import { cardFrame } from '@/constants/cardStyle';
 import { theme } from '@/constants/theme';
+import { colors } from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { usePeopleDiscoveryStore } from '@/store/peopleDiscoveryStore';
 
@@ -137,7 +138,7 @@ export default function PeopleScreen() {
               className="rounded-full px-4 py-2 border"
               style={{
                 borderColor: selected ? theme.brand : '#E7E2DD',
-                backgroundColor: selected ? theme.peach : '#fff',
+                backgroundColor: selected ? theme.peach : colors.card,
               }}
             >
               <Text style={{ color: selected ? theme.brand : '#6B6B6B', fontWeight: '600' }}>
@@ -228,14 +229,14 @@ export default function PeopleScreen() {
                 <View className="mt-4 flex-row gap-2">
                   <Pressable
                     className="flex-1 rounded-xl py-3 border items-center"
-                    style={{ borderColor: '#E7E2DD', backgroundColor: '#fff' }}
+                    style={{ borderColor: '#E7E2DD', backgroundColor: colors.card }}
                     onPress={() => passPerson(item)}
                   >
                     <Text className="text-sm font-semibold text-text-secondary">Pass</Text>
                   </Pressable>
                   <Pressable
                     className="flex-1 rounded-xl py-3 border items-center"
-                    style={{ borderColor: '#E7E2DD', backgroundColor: '#fff' }}
+                    style={{ borderColor: '#E7E2DD', backgroundColor: colors.card }}
                     onPress={() => router.push(`/user/${item.id}`)}
                   >
                     <View className="flex-row items-center gap-1">

@@ -10,7 +10,7 @@ export function ChatsTitlePill() {
         className="rounded-full px-10 py-2.5 border"
         style={{
           borderColor: theme.brand,
-          backgroundColor: colors.white,
+          backgroundColor: colors.card,
         }}
       >
         <Text className="text-[22px] font-bold" style={{ color: theme.brand }}>

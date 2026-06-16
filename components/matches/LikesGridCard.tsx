@@ -40,7 +40,7 @@ export function LikesGridCard({ item, width, style, onPress }: LikesGridCardProp
           blurRadius={item.locked ? 18 : 0}
         />
       ) : (
-        <View className="flex-1 items-center justify-center bg-white" style={{ width, height }}>
+        <View className="flex-1 items-center justify-center bg-card" style={{ width, height }}>
           <Text className="text-3xl font-bold" style={{ color: theme.brand }}>
             {firstName[0]}
           </Text>

@@ -1,9 +1,10 @@
 export const colors = {
   /** Top navigation bar and bottom tab bar */
   background: '#FAFAF8',
-  /** Warm peach screen background */
-  page: '#FAEDE6',
-  card: '#FFFFFF',
+  /** Screen background */
+  page: '#FFFFFF',
+  /** Translucent peach card surfaces */
+  card: 'rgba(253, 237, 229, 0.72)',
   textPrimary: '#1A1A1A',
   textSecondary: '#6B6B6B',
   accent: '#A53D13',

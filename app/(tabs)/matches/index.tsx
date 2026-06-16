@@ -185,7 +185,7 @@ export default function MatchesScreen() {
                 <Pressable
                   key={`matched-${item.id}`}
                   onPress={() => openChatForUser(item.userId)}
-                  className="bg-white rounded-2xl mb-2 px-4 py-3 flex-row items-center"
+                  className="bg-card rounded-2xl mb-2 px-4 py-3 flex-row items-center"
                   style={{
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 1 },

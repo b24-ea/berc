@@ -8,14 +8,17 @@ const cardShadow = {
   elevation: 2,
 } as const;
 
-/** Shared white card surface on peach pages. */
+/** Shared peach card surface on white pages. */
 export const cardFrame = {
-  backgroundColor: colors.white,
+  backgroundColor: colors.card,
+  borderWidth: 1,
+  borderColor: colors.cardBorder,
   ...cardShadow,
 } as const;
 
 export const cardFrameMuted = {
-  backgroundColor: colors.white,
-  opacity: 0.92,
+  backgroundColor: 'rgba(245, 230, 220, 0.55)',
+  borderWidth: 1,
+  borderColor: colors.cardBorder,
   ...cardShadow,
 } as const;

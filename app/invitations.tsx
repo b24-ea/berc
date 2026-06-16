@@ -99,7 +99,7 @@ export default function InvitationsScreen() {
                 className="rounded-full px-4 py-2 border"
                 style={{
                   borderColor: selected ? theme.brand : '#E7E2DD',
-                  backgroundColor: selected ? theme.peach : '#fff',
+                  backgroundColor: selected ? theme.peach : colors.card,
                 }}
               >
                 <Text style={{ color: selected ? theme.brand : '#6B6B6B', fontWeight: '600' }}>

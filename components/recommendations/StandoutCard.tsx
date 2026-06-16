@@ -91,7 +91,7 @@ export const StandoutCard = React.memo(function StandoutCard({
       <View className="absolute left-5 right-5" style={{ top: height * 0.36 }}>
         <View
           className="rounded-[18px] px-4 py-4"
-          style={{ backgroundColor: 'rgba(255,255,255,0.97)' }}
+          style={{ backgroundColor: colors.card }}
         >
           <Text
             className="text-[10px] font-bold uppercase tracking-[1.5px] mb-2"

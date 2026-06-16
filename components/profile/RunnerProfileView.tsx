@@ -339,7 +339,7 @@ export function RunnerProfileView({
           ) : null}
           <Pressable
             onPress={handleInvite}
-            className="flex-1 h-[52px] rounded-full items-center justify-center flex-row gap-2 border bg-white"
+            className="flex-1 h-[52px] rounded-full items-center justify-center flex-row gap-2 border bg-card"
             style={{
               borderColor: colors.border,
               shadowColor: '#000',

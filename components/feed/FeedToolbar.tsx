@@ -23,7 +23,7 @@ export function FeedToolbar({
     >
       <Pressable
         onPress={onFiltersPress}
-        className="flex-row items-center gap-2 px-4 py-2.5 rounded-full border border-border bg-white"
+        className="flex-row items-center gap-2 px-4 py-2.5 rounded-full border border-card-border bg-card"
         style={{ alignSelf: 'center', height: 44, justifyContent: 'center' }}
       >
         <Ionicons name="options-outline" size={16} color={colors.textPrimary} />

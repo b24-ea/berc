@@ -26,7 +26,7 @@ export function MatchesSegmentControl({ active, onChange }: MatchesSegmentContro
             className="flex-1 rounded-full py-2.5 items-center border"
             style={{
               borderColor: selected ? theme.brand : colors.border,
-              backgroundColor: selected ? colors.accentLight : colors.white,
+              backgroundColor: selected ? colors.accentLight : colors.card,
             }}
           >
             <Text
