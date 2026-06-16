@@ -80,6 +80,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="matches"
+        options={{
+          title: 'Matches',
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon
+              name={focused ? 'heart' : 'heart-outline'}
+              focused={focused}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="chats"
         options={{
           title: 'Chats',
