@@ -42,6 +42,7 @@ function RootNavigator() {
       <Stack.Screen name="invitations" options={{ headerShown: false, animation: 'slide_from_right' }} />
       <Stack.Screen name="user/[id]" options={{ headerShown: false, animation: 'slide_from_right' }} />
       <Stack.Screen name="feed-filters" options={{ headerShown: false, animation: 'slide_from_right' }} />
+      <Stack.Screen name="berc-plus" options={{ headerShown: false, animation: 'slide_from_right' }} />
     </Stack>
   );
 }

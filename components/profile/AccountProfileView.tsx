@@ -63,7 +63,7 @@ export function AccountProfileView({
           subtitle="Get more out of every mile."
           ctaLabel="Get berc+"
           ctaVariant="pill"
-          onPress={() => comingSoon('berc+')}
+          onPress={() => router.push('/berc-plus')}
         />
 
         <HingeProfilePromoCard

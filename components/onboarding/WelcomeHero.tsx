@@ -2,6 +2,7 @@ import { View, Text, Pressable } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { DevBypassButton } from '@/components/dev/DevBypassButton';
 import { theme } from '@/constants/theme';
 
 const RING_CONFIG = [
@@ -109,6 +110,8 @@ export function WelcomeHero({ showSignIn = true, onGetStarted }: WelcomeHeroProp
             </Pressable>
           </Animated.View>
         ) : null}
+
+        <DevBypassButton variant="light" />
       </View>
     </View>
   );
