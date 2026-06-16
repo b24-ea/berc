@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Pressable,
-  FlatList,
   ScrollView,
   useWindowDimensions,
   NativeSyntheticEvent,
@@ -192,9 +191,7 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
             className="mx-5 rounded-2xl overflow-hidden bg-card self-center"
             style={{ width: photoWidth, height: photoHeight, ...CARD_SHADOW }}
           >
-            <FlatList
-              data={photos}
-              keyExtractor={(uri, index) => `${uri}-${index}`}
+            <ScrollView
               pagingEnabled
               nestedScrollEnabled
               showsVerticalScrollIndicator={false}
@@ -202,19 +199,17 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
               onMomentumScrollEnd={handlePhotoScroll}
               onScroll={handlePhotoScroll}
               scrollEventThrottle={32}
-              renderItem={({ item }) => (
+              style={{ width: photoWidth, height: photoHeight }}
+            >
+              {photos.map((uri, index) => (
                 <Image
-                  source={{ uri: item }}
+                  key={`${uri}-${index}`}
+                  source={{ uri }}
                   style={{ width: photoWidth, height: photoHeight }}
                   contentFit="cover"
                 />
-              )}
-              getItemLayout={(_, index) => ({
-                length: photoHeight,
-                offset: photoHeight * index,
-                index,
-              })}
-            />
+              ))}
+            </ScrollView>
 
             {photos.length > 1 ? (
               <View
