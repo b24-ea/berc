@@ -330,8 +330,11 @@ export const FeeldFeedCard = React.memo(function FeeldFeedCard({
       >
         <Pressable
           onPress={handlePass}
-          className="w-[52px] h-[52px] rounded-full items-center justify-center bg-card"
+          className="w-[52px] h-[52px] items-center justify-center bg-card border"
           style={{
+            borderRadius: 26,
+            borderColor: colors.cardBorder,
+            overflow: 'hidden',
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.12,

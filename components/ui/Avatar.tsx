@@ -16,6 +16,13 @@ const sizeMap = {
   xl: 'w-20 h-20',
 };
 
+const pixelSizeMap = {
+  sm: 32,
+  md: 40,
+  lg: 56,
+  xl: 80,
+};
+
 const textSizeMap = {
   sm: 'text-xs',
   md: 'text-sm',
@@ -25,6 +32,7 @@ const textSizeMap = {
 
 export function Avatar({ uri, name, size = 'md', className }: AvatarProps) {
   const initials = name?.charAt(0)?.toUpperCase() ?? '?';
+  const dimension = pixelSizeMap[size];
 
   return (
     <View
@@ -35,7 +43,11 @@ export function Avatar({ uri, name, size = 'md', className }: AvatarProps) {
       )}
     >
       {uri ? (
-        <Image source={{ uri }} className="w-full h-full" contentFit="cover" />
+        <Image
+          source={{ uri }}
+          style={{ width: dimension, height: dimension }}
+          contentFit="cover"
+        />
       ) : (
         <View className="w-full h-full items-center justify-center bg-accent-light">
           <Text className={cn('font-semibold text-accent', textSizeMap[size])}>

@@ -46,11 +46,16 @@ export function ChatListItemRow({
       className="flex-row items-center gap-3 bg-card rounded-2xl mx-5 mb-2 px-4 py-3"
       style={ROW_SHADOW}
     >
-      <Avatar
-        uri={item.otherUser.photos?.[0]}
-        name={item.otherUser.name}
-        size="lg"
-      />
+      <View
+        className="rounded-full border overflow-hidden"
+        style={{ borderColor: colors.cardBorder }}
+      >
+        <Avatar
+          uri={item.otherUser.photos?.[0]}
+          name={item.otherUser.name}
+          size="lg"
+        />
+      </View>
       <View className="flex-1">
         <View className="flex-row items-center justify-between gap-2">
           <Text className="text-base font-bold text-text-primary flex-1" numberOfLines={1}>
