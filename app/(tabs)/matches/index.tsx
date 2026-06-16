@@ -1,15 +1,23 @@
 import { useMemo, useState } from 'react';
-import { View, Text, Pressable, Alert } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  Alert,
+  useWindowDimensions,
+} from 'react-native';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { StandoutsTopBar } from '@/components/recommendations/StandoutsTopBar';
-import { MatchRow, MatchesTitlePill } from '@/components/matches/MatchRow';
+import { BercPlusLikesBanner } from '@/components/matches/BercPlusLikesBanner';
+import { MatchesAvatarStrip } from '@/components/matches/MatchesAvatarStrip';
 import {
-  MatchesSegmentControl,
-  type MatchesTab,
-} from '@/components/matches/MatchesSegmentControl';
-import { InvitationPersonRow } from '@/components/people/InvitationPersonRow';
+  LikesGridCard,
+  LikesSectionHeader,
+  type LikeGridItem,
+} from '@/components/matches/LikesGridCard';
 import { MOCK_MATCHES } from '@/constants/mockMatches';
 import {
   MOCK_RECEIVED_INVITATIONS,
@@ -20,28 +28,77 @@ import { useUserStore } from '@/store/userStore';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
+const GRID_GAP = 10;
+const GRID_PADDING = 20;
+const HAS_BERC_PLUS = false;
+
+function toLikeGridItem(item: InvitationListItem): LikeGridItem {
+  const locked = item.status === 'pending' && !HAS_BERC_PLUS;
+  return {
+    id: item.id,
+    userId: item.userId,
+    name: item.name,
+    age: item.age,
+    photo: item.photo,
+    runTitle: item.runTitle,
+    status: item.status,
+    locked,
+  };
+}
+
 export default function MatchesScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const { width: screenWidth } = useWindowDimensions();
   const profile = useUserStore((s) => s.profile);
   const feedCity = useUserStore((s) => s.feedCity);
-  const [activeTab, setActiveTab] = useState<MatchesTab>('matches');
   const [receivedItems, setReceivedItems] = useState(MOCK_RECEIVED_INVITATIONS);
 
   const displayCity = feedCity || profile?.city || 'London';
   const matches = useMemo(() => MOCK_MATCHES, []);
 
-  const pendingInviteCount = receivedItems.filter((item) => item.status === 'pending').length;
+  const likes = useMemo(
+    () => receivedItems.map(toLikeGridItem),
+    [receivedItems],
+  );
+
+  const pendingCount = likes.filter((item) => item.status === 'pending').length;
+  const cardWidth = (screenWidth - GRID_PADDING * 2 - GRID_GAP) / 2;
 
   const handleAccept = (item: InvitationListItem) => {
     setReceivedItems((prev) =>
       prev.map((row) => (row.id === item.id ? { ...row, status: 'accepted' } : row)),
     );
-    Alert.alert('Invite accepted', `You matched with ${item.name}.`);
+    Alert.alert('It\'s a match!', `You and ${item.name} are ready to run together.`);
+  };
+
+  const handleLikePress = (item: LikeGridItem) => {
+    const source = receivedItems.find((row) => row.id === item.id);
+    if (!source) return;
+
+    if (item.locked) {
+      router.push('/berc-plus');
+      return;
+    }
+
+    if (item.status === 'pending') {
+      Alert.alert(
+        source.name,
+        `Wants to join · ${source.runTitle}`,
+        [
+          { text: 'Decline', style: 'destructive', onPress: () => handleDecline(source) },
+          { text: 'Accept', onPress: () => handleAccept(source) },
+          { text: 'View profile', onPress: () => router.push(`/user/${source.userId}`) },
+        ],
+      );
+      return;
+    }
+
+    router.push(`/user/${source.userId}`);
   };
 
   const handleDecline = (item: InvitationListItem) => {
     setReceivedItems((prev) => prev.filter((row) => row.id !== item.id));
-    Alert.alert('Invite declined', `You declined ${item.name}'s invite.`);
   };
 
   const openChatForUser = (userId: string) => {
@@ -53,106 +110,110 @@ export default function MatchesScreen() {
     router.push('/(tabs)/chats');
   };
 
-  const renderMatches = () => {
-    if (matches.length === 0) {
-      return (
-        <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="heart-outline" size={32} color={theme.brand} />
-          <Text className="text-base font-semibold text-text-primary text-center mt-4">
-            No matches yet
-          </Text>
-          <Text className="text-sm text-center mt-2 leading-5" style={{ color: colors.textSecondary }}>
-            Accept a run invite or join a run to start matching.
-          </Text>
-        </View>
-      );
-    }
-
-    return (
-      <FlashList
-        data={matches}
-        keyExtractor={(item) => item.id}
-        style={{ flex: 1, backgroundColor: colors.page }}
-        contentContainerStyle={{ paddingBottom: 16 }}
-        renderItem={({ item }) => (
-          <MatchRow
-            item={item}
-            onPress={() => router.push(`/user/${item.userId}`)}
-            onMessage={() => openChatForUser(item.userId)}
-          />
-        )}
-      />
-    );
-  };
-
-  const renderInvites = () => {
-    if (receivedItems.length === 0) {
-      return (
-        <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="mail-outline" size={32} color={theme.brand} />
-          <Text className="text-base font-semibold text-text-primary text-center mt-4">
-            No invites yet
-          </Text>
-          <Text className="text-sm text-center mt-2 leading-5" style={{ color: colors.textSecondary }}>
-            When someone invites you to run, they will show up here.
-          </Text>
-        </View>
-      );
-    }
-
-    return (
-      <FlashList
-        data={receivedItems}
-        keyExtractor={(item) => item.id}
-        style={{ flex: 1, backgroundColor: colors.page }}
-        contentContainerStyle={{ paddingBottom: 16 }}
-        renderItem={({ item }) => (
-          <View className="mx-5">
-            <InvitationPersonRow
-              item={item}
-              onPress={() => router.push(`/user/${item.userId}`)}
-              rightContent={
-                item.status === 'pending' ? (
-                  <View className="gap-2">
-                    <Pressable
-                      className="rounded-full px-3 py-1.5"
-                      style={{ backgroundColor: theme.brand }}
-                      onPress={() => handleAccept(item)}
-                    >
-                      <Text className="text-xs font-semibold text-white">Accept</Text>
-                    </Pressable>
-                    <Pressable
-                      className="rounded-full px-3 py-1.5 border"
-                      style={{ borderColor: colors.border }}
-                      onPress={() => handleDecline(item)}
-                    >
-                      <Text className="text-xs font-semibold text-text-secondary">Decline</Text>
-                    </Pressable>
-                  </View>
-                ) : undefined
-              }
-            />
-          </View>
-        )}
-      />
-    );
-  };
-
   return (
     <View className="flex-1 bg-page">
       <StandoutsTopBar city={displayCity} />
-      <MatchesTitlePill />
-      <MatchesSegmentControl active={activeTab} onChange={setActiveTab} />
 
-      {activeTab === 'invites' && pendingInviteCount > 0 ? (
-        <Text className="text-sm text-text-secondary px-5 mb-3">
-          {pendingInviteCount} runner{pendingInviteCount === 1 ? '' : 's'} invited you to run
-        </Text>
-      ) : null}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
+      >
+        <LikesSectionHeader count={likes.length} />
 
-      <View className="flex-1">
-        {activeTab === 'matches' ? renderMatches() : renderInvites()}
-      </View>
+        <MatchesAvatarStrip
+          matches={matches}
+          onPressMatch={(item) => router.push(`/user/${item.userId}`)}
+          onMessage={(item) => openChatForUser(item.userId)}
+        />
+
+        {pendingCount > 0 && !HAS_BERC_PLUS ? (
+          <BercPlusLikesBanner
+            likeCount={pendingCount}
+            onPress={() => router.push('/berc-plus')}
+          />
+        ) : null}
+
+        <View className="px-5 mb-3 flex-row items-center justify-between">
+          <Text className="text-lg font-bold text-text-primary">Likes You</Text>
+          {pendingCount > 0 ? (
+            <View
+              className="rounded-full px-2.5 py-1 min-w-[28px] items-center"
+              style={{ backgroundColor: theme.brand }}
+            >
+              <Text className="text-xs font-bold text-white">{pendingCount}</Text>
+            </View>
+          ) : null}
+        </View>
+
+        {likes.length === 0 ? (
+          <View className="items-center justify-center px-8 py-16">
+            <Ionicons name="heart-outline" size={40} color={theme.brand} />
+            <Text className="text-base font-semibold text-text-primary text-center mt-4">
+              No likes yet
+            </Text>
+            <Text
+              className="text-sm text-center mt-2 leading-5"
+              style={{ color: colors.textSecondary }}
+            >
+              When someone wants to run with you, they&apos;ll appear here.
+            </Text>
+          </View>
+        ) : (
+          <View
+            className="flex-row flex-wrap px-5"
+            style={{ gap: GRID_GAP }}
+          >
+            {likes.map((item) => (
+              <LikesGridCard
+                key={item.id}
+                item={item}
+                width={cardWidth}
+                onPress={() => handleLikePress(item)}
+              />
+            ))}
+          </View>
+        )}
+
+        {likes.some((item) => !item.locked && item.status === 'accepted') ? (
+          <View className="px-5 mt-8">
+            <Text className="text-xs font-bold uppercase tracking-wider mb-3 text-text-secondary">
+              Matched runs
+            </Text>
+            {receivedItems
+              .filter((item) => item.status === 'accepted')
+              .map((item) => (
+                <Pressable
+                  key={`matched-${item.id}`}
+                  onPress={() => openChatForUser(item.userId)}
+                  className="bg-white rounded-2xl mb-2 px-4 py-3 flex-row items-center"
+                  style={{
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.05,
+                    shadowRadius: 3,
+                    elevation: 2,
+                  }}
+                >
+                  <View
+                    className="w-10 h-10 rounded-full items-center justify-center mr-3"
+                    style={{ backgroundColor: colors.accentLight }}
+                  >
+                    <Ionicons name="chatbubble" size={18} color={theme.brand} />
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-base font-semibold text-text-primary">{item.name}</Text>
+                    <Text className="text-sm text-text-secondary" numberOfLines={1}>
+                      {item.runTitle}
+                    </Text>
+                  </View>
+                  <Text className="text-sm font-semibold" style={{ color: theme.brand }}>
+                    Message
+                  </Text>
+                </Pressable>
+              ))}
+          </View>
+        ) : null}
+      </ScrollView>
     </View>
   );
 }
