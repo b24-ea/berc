@@ -6,7 +6,7 @@ import type { RegisterFormValues } from '@/utils/validators';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const redirectTo = makeRedirectUri({ scheme: 'runnr' });
+const redirectTo = makeRedirectUri({ scheme: 'berc' });
 
 export async function signInWithEmail(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });

@@ -1,15 +1,15 @@
 {
   "expo": {
     "name": "berc",
-    "slug": "runnr",
+    "slug": "berc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "runnr",
+    "scheme": "berc",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.runr.app",
+      "bundleIdentifier": "com.berc.app",
       "usesAppleSignIn": true
     },
     "android": {
@@ -19,7 +19,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "package": "com.runr.app",
+      "package": "com.berc.app",
       "predictiveBackGestureEnabled": false
     },
     "web": {

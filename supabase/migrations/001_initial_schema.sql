@@ -1,4 +1,4 @@
--- Runnr initial schema
+-- berc initial schema
 
 CREATE TABLE users (
   id              uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,

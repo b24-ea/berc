@@ -68,7 +68,7 @@ export function enterDevMode() {
   auth.setDevBypass(true);
   auth.setUser({
     id: DEV_USER_ID,
-    email: 'dev@runr.local',
+    email: 'dev@berc.local',
     app_metadata: {},
     user_metadata: { name: DEV_MOCK_PROFILE.name },
     aud: 'authenticated',

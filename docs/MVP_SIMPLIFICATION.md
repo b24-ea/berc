@@ -1,4 +1,4 @@
-# Runnr — Basitleştirilmiş MVP Planı
+# berc — Basitleştirilmiş MVP Planı
 
 > **Amaç:** Uygulamayı olabildiğince basit ve kolay kullanılabilir hale getirmek.  
 > Kullanıcı ana sayfada yalnızca **tek bir kişiyi** görür, karar verir, sonraki kişiye geçer.  
@@ -8,7 +8,7 @@
 
 ## 1. Ürün felsefesi
 
-Runnr bir feed veya liste uygulaması değildir.
+berc bir feed veya liste uygulaması değildir.
 
 **Tek cümle:**
 
@@ -114,7 +114,7 @@ Profile tab          → kendi hesabını gör / düzenle
 ### Faz 1 — UI sadeleştirme
 
 - [ ] `feed/index` yalnızca `currentUser` göstersin (liste yok)
-- [ ] Header: `runr` + şehir; filtre ikonu kaldır
+- [ ] Header: `berc` + şehir; filtre ikonu kaldır
 - [ ] Tab bar: Seçenek A veya B’ye göre sadeleştir
 - [ ] People, Chats, Invitations tab’larını gizle (`href: null`)
 
@@ -173,7 +173,7 @@ Uygulamaya geçmeden önce netleştirilmeli:
 | Karmaşık keşif | Basit: gör → karar ver → devam |
 | Her şey bir anda | Önce core, sonra v2 |
 
-**Sonuç:** Runnr, “yakınındaki koşucuları tek tek keşfet” deneyimine odaklanır. Basit, hızlı, net.
+**Sonuç:** berc, “yakınındaki koşucuları tek tek keşfet” deneyimine odaklanır. Basit, hızlı, net.
 
 ---
 

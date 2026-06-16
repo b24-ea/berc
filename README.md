@@ -1,4 +1,4 @@
-# runr
+# berc
 
 A premium social lifestyle app where people naturally connect through running.
 
