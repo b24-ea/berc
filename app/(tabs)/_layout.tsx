@@ -9,25 +9,30 @@ function TabIcon({
   focused,
   color,
   size,
+  prominent,
 }: {
   name: keyof typeof Ionicons.glyphMap;
   focused: boolean;
   color: ColorValue;
   size: number;
+  prominent?: boolean;
 }) {
+  const dimension = prominent && focused ? 48 : 44;
+  const iconSize = prominent && focused ? 24 : 22;
+
   if (focused) {
     return (
       <View
         style={{
           backgroundColor: theme.brand,
-          width: 44,
-          height: 44,
-          borderRadius: 22,
+          width: dimension,
+          height: dimension,
+          borderRadius: dimension / 2,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <Ionicons name={name} size={22} color="#fff" />
+        <Ionicons name={name} size={iconSize} color="#fff" />
       </View>
     );
   }
@@ -51,6 +56,9 @@ export default function TabLayout() {
         animation: 'fade',
       }}
     >
+      <Tabs.Screen name="people" options={{ href: null }} />
+      <Tabs.Screen name="create" options={{ href: null }} />
+
       <Tabs.Screen
         name="feed"
         options={{
@@ -68,7 +76,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="recommendations"
         options={{
-          title: 'Recommendations',
+          title: 'Standouts',
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon
               name={focused ? 'sparkles' : 'sparkles-outline'}
@@ -89,6 +97,7 @@ export default function TabLayout() {
               focused={focused}
               color={color}
               size={size}
+              prominent
             />
           ),
         }}
@@ -97,8 +106,13 @@ export default function TabLayout() {
         name="chats"
         options={{
           title: 'Chats',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbubble-outline" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon
+              name={focused ? 'chatbubble' : 'chatbubble-outline'}
+              focused={focused}
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -114,18 +128,6 @@ export default function TabLayout() {
               size={size}
             />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="people"
-        options={{
-          href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="create"
-        options={{
-          href: null,
         }}
       />
     </Tabs>
