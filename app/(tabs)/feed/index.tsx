@@ -13,6 +13,7 @@ import { useChats } from '@/features/chat/hooks';
 import { MOCK_FEED_RUNS } from '@/constants/mockFeed';
 import type { FeedRun } from '@/types/app';
 import { theme } from '@/constants/theme';
+import { matchesExtendedFeedFilters } from '@/utils/feedFilterMatching';
 
 export default function FeedScreen() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function FeedScreen() {
   const isDevBypass = useAuthStore((s) => s.isDevBypass);
   const profile = useUserStore((s) => s.profile);
   const { feedCity, feedRadius } = useUserStore();
-  const { activeFilter, genderFilter, distanceFilter } = useRunsStore();
+  const { activeFilter, genderFilter, distanceFilter, interestFilters, heightFilter, relationshipFilter } = useRunsStore();
   const createRequest = useCreateRunRequest();
   const { data: chats } = useChats(isDevBypass ? undefined : userId);
   const [mockRequestStatus, setMockRequestStatus] = useState<Record<string, FeedRun['requestStatus']>>({});
@@ -108,7 +109,13 @@ export default function FeedScreen() {
         return km > 10;
       })();
 
-      return matchesCategory && matchesGender && matchesDistance;
+      const matchesExtended = matchesExtendedFeedFilters(run, {
+        interestFilters,
+        heightFilter,
+        relationshipFilter,
+      });
+
+      return matchesCategory && matchesGender && matchesDistance && matchesExtended;
     });
 
     return filtered.map((run) => ({
@@ -122,6 +129,9 @@ export default function FeedScreen() {
     activeFilter,
     genderFilter,
     distanceFilter,
+    interestFilters,
+    heightFilter,
+    relationshipFilter,
     mockRequestStatus,
     reviewedRunIds,
   ]);
@@ -134,9 +144,12 @@ export default function FeedScreen() {
     if (activeFilter !== 'nearby') count += 1;
     if (genderFilter !== 'all') count += 1;
     if (distanceFilter !== 'all') count += 1;
+    if (interestFilters.length > 0) count += 1;
+    if (heightFilter !== 'all') count += 1;
+    if (relationshipFilter !== 'all') count += 1;
     if (feedRadius !== 10) count += 1;
     return count;
-  }, [activeFilter, genderFilter, distanceFilter, feedRadius]);
+  }, [activeFilter, genderFilter, distanceFilter, interestFilters, heightFilter, relationshipFilter, feedRadius]);
 
   const advanceToNext = useCallback((run: FeedRun) => {
     setReviewedRunIds((prev) => (prev.includes(run.id) ? prev : [...prev, run.id]));

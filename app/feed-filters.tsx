@@ -6,6 +6,11 @@ import { FeedCategoryChips } from '@/components/feed/FeedCategoryChips';
 import { useRunsStore } from '@/store/runsStore';
 import { useUserStore } from '@/store/userStore';
 import { DISCOVERY_RADIUS_OPTIONS } from '@/constants/vibes';
+import {
+  FEED_INTEREST_FILTERS,
+  HEIGHT_FILTERS,
+  RELATIONSHIP_FILTERS,
+} from '@/constants/feedFilters';
 import { theme } from '@/constants/theme';
 import { colors } from '@/constants/colors';
 
@@ -41,9 +46,15 @@ export default function FeedFiltersScreen() {
     activeFilter,
     genderFilter,
     distanceFilter,
+    interestFilters,
+    heightFilter,
+    relationshipFilter,
     setActiveFilter,
     setGenderFilter,
     setDistanceFilter,
+    toggleInterestFilter,
+    setHeightFilter,
+    setRelationshipFilter,
     resetFeedFilters,
   } = useRunsStore();
   const feedRadius = useUserStore((s) => s.feedRadius);
@@ -99,6 +110,48 @@ export default function FeedFiltersScreen() {
             <FilterChip label="0-6 km" selected={distanceFilter === 'short'} onPress={() => setDistanceFilter('short')} />
             <FilterChip label="6-10 km" selected={distanceFilter === 'medium'} onPress={() => setDistanceFilter('medium')} />
             <FilterChip label="10+ km" selected={distanceFilter === 'long'} onPress={() => setDistanceFilter('long')} />
+          </View>
+
+          <Text className="text-xs uppercase tracking-wide mb-3 mt-6" style={{ color: theme.brand }}>
+            Interests
+          </Text>
+          <View className="flex-row flex-wrap gap-2">
+            {FEED_INTEREST_FILTERS.map((interest) => (
+              <FilterChip
+                key={interest.id}
+                label={interest.label}
+                selected={interestFilters.includes(interest.id)}
+                onPress={() => toggleInterestFilter(interest.id)}
+              />
+            ))}
+          </View>
+
+          <Text className="text-xs uppercase tracking-wide mb-3 mt-6" style={{ color: theme.brand }}>
+            Height
+          </Text>
+          <View className="flex-row flex-wrap gap-2">
+            {HEIGHT_FILTERS.map((option) => (
+              <FilterChip
+                key={option.id}
+                label={option.label}
+                selected={heightFilter === option.id}
+                onPress={() => setHeightFilter(option.id)}
+              />
+            ))}
+          </View>
+
+          <Text className="text-xs uppercase tracking-wide mb-3 mt-6" style={{ color: theme.brand }}>
+            Relationship
+          </Text>
+          <View className="flex-row flex-wrap gap-2">
+            {RELATIONSHIP_FILTERS.map((option) => (
+              <FilterChip
+                key={option.id}
+                label={option.label}
+                selected={relationshipFilter === option.id}
+                onPress={() => setRelationshipFilter(option.id)}
+              />
+            ))}
           </View>
 
           <Text className="text-xs uppercase tracking-wide mb-3 mt-6" style={{ color: theme.brand }}>
