@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>berc — find your pace</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #FAEDE6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+}
+
+.photo-container {
+  width: 100%;
+  max-width: 480px;
+  height: 320px;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  box-shadow: 0 12px 40px rgba(165,61,19,0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.photo-container img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(165, 61, 19, 0.45);
+}
+
+.photo-top {
+  position: relative;
+  z-index: 2;
+  padding: 24px 28px 0;
+  text-align: center;
+}
+
+.wordmark {
+  font-size: 72px;
+  font-weight: 700;
+  color: #1A1A1A;
+  letter-spacing: -2px;
+}
+
+.photo-bottom {
+  position: relative;
+  z-index: 2;
+  padding: 0 28px 28px;
+  text-align: center;
+}
+
+.slogan {
+  font-size: 38px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.subtext {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+.form-area {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-input {
+  width: 100%;
+  height: 54px;
+  border-radius: 27px;
+  border: 1.5px solid #EEEDE9;
+  background: #FFFFFF;
+  padding: 0 24px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: #1A1A1A;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.email-input::placeholder { color: #C0B8B0; }
+.email-input:focus { border-color: #A53D13; }
+
+.cta-btn {
+  width: 100%;
+  height: 54px;
+  border-radius: 27px;
+  background: #A53D13;
+  color: #FFFFFF;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.cta-btn:hover { background: #8B3213; }
+.cta-btn:active { transform: scale(0.98); }
+
+.note {
+  font-size: 12px;
+  color: #C0B8B0;
+  margin-top: 2px;
+  text-align: center;
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 12px;
+  color: #C0B8B0;
+}
+</style>
+</head>
+<body>
+
+<svg class="rings" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid slice">
+  <circle cx="400" cy="350" r="320" fill="none" stroke="#A53D13" stroke-width="1" opacity="0.05"/>
+  <circle cx="400" cy="350" r="250" fill="none" stroke="#A53D13" stroke-width="1" opacity="0.07"/>
+  <circle cx="400" cy="350" r="180" fill="none" stroke="#A53D13" stroke-width="1" opacity="0.09"/>
+  <circle cx="400" cy="350" r="110" fill="none" stroke="#A53D13" stroke-width="1" opacity="0.12"/>
+  <circle cx="400" cy="350" r="50" fill="none" stroke="#A53D13" stroke-width="1.2" opacity="0.15"/>
+</svg>
+
+<div class="content">
+
+  <div class="photo-container">
+    <img src="YOUR_PHOTO_HERE.jpg" alt="runners" onerror="this.style.display='none'"/>
+    <div class="photo-overlay"></div>
+
+    <!-- berc top left — siyah -->
+    <div class="photo-top" style="text-align:center;">
+      <div class="wordmark">berc</div>
+    </div>
+
+    <!-- slogan + subtext bottom left — beyaz -->
+    <div class="photo-bottom">
+      <div class="slogan">find your pace</div>
+      <p class="subtext">a social running app. meet people naturally.</p>
+    </div>
+  </div>
+
+  <div class="form-area">
+    <input class="email-input" type="email" placeholder="your@email.com"/>
+    <button class="cta-btn">Join the waitlist 👟</button>
+    <p class="note">No spam. Just a message when berc launches.</p>
+  </div>
+
+</div>
+
+<div class="footer">© 2025 berc</div>
+
+</body>
+</html>
